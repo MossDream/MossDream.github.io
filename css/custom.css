@@ -119,7 +119,7 @@ span.vnick {
 
 /* 文章页背景 */
 .layout_post>#post {
-    /* 以下代表透明度为0.7 可以自行修改*/
+    /* 以下代表透明度为0.8 可以自行修改*/
     background: rgba(255, 255, 255, .8);
 }
 
@@ -130,11 +130,11 @@ span.vnick {
 .layout_post>#page,
 .layout_post>#post,
 .read-mode .layout_post>#post {
-    /* 以下代表透明度为0.7 */
+    /* 以下代表透明度为0.8 */
     background: rgba(255, 255, 255, .8);
 }
 
 /*侧边卡片的透明度 */
 :root {
-    --card-bg: rgba(255, 255, 255, .5);
+    --card-bg: rgba(255, 255, 255, .8);
 }
