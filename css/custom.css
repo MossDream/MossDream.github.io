@@ -1,0 +1,140 @@
+/*滚动条设置*/
+html {
+    cursor: url(../img/Arrow.cur), auto;
+    background-color: rgba(0, 0, 0, 0.0);
+    overflow-y: scroll;
+    /* 设置自定义滚动条 */
+}
+
+/* 滚动栏本身的背景 此项必须有 */
+html::-webkit-scrollbar {
+    width: 6px;
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+/*滚动栏下方的空白区域*/
+html::-webkit-scrollbar-track {
+    background: rgba(255, 85, 127, 0.0);
+    /* 设置透明，就会随主题变化 */
+}
+
+/* 可拖动滚动元素的大小取决于可滚动元素的大小 */
+html::-webkit-scrollbar-thumb {
+    background: #252d38;
+    border-radius: 6px;
+}
+
+/* 可滚动元素的底角，两个滚动条在此相交。 */
+html::-webkit-scrollbar-corner {
+    background: #82AFFF;
+}
+
+.markdown-body table {
+    overflow-x: scroll;
+    /* 设置自定义滚动条 */
+}
+
+/* 滚动栏本身的背景 此项必须有 */
+.markdown-body table::-webkit-scrollbar {
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+/*滚动栏下方的空白区域*/
+.markdown-body table::-webkit-scrollbar-track {
+    background-color: rgba(255, 85, 127, 0.0);
+}
+
+/* 可拖动滚动元素的大小取决于可滚动元素的大小 */
+.markdown-body table::-webkit-scrollbar-thumb {
+    background: #ffaaff;
+    border-radius: 2px;
+}
+
+/*鼠标光标设置*/
+/* 以下为替换鼠标光标 */
+/* 封面大图 */
+.banner {
+    cursor: url(../img/Arrow.cur), auto;
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 封面向下 */
+.scroll-down-bar {
+    cursor: url(../img/Hand2.cur), auto;
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 搜索框关闭按钮 */
+#local-search-close.close {
+    cursor: url(../img/Hand2.cur), auto;
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 搜索框、输入框 */
+input,
+textarea {
+    cursor: url(../img/IBeam.cur), auto;
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 所有可跳转链接 */
+a[href] {
+    cursor: url(../img/Hand2.cur), auto !important;
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 按钮 */
+button[class] {
+    cursor: url(../img/Hand2.cur), auto !important;
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 补充按钮 */
+svg,
+span.vat,
+span.vnick {
+    cursor: url(../img/Hand2.cur), auto !important;
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 图片放大 */
+.fancybox-image {
+    cursor: url(../img/SizeAll.cur), auto;
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 提高目录的z轴坐标，否则会被动态线挡住 */
+#toc {
+    z-index: 10;
+}
+
+#timeDate {
+    font-size: 12px;
+}
+
+#times {
+    font-size: 12px;
+}
+
+/* 文章页背景 */
+.layout_post>#post {
+    /* 以下代表透明度为0.7 可以自行修改*/
+    background: rgba(255, 255, 255, .8);
+}
+
+/* 所有页面背景 */
+#aside_content .card-widget,
+#recent-posts>.recent-post-item,
+.layout_page>div:first-child:not(.recent-posts),
+.layout_post>#page,
+.layout_post>#post,
+.read-mode .layout_post>#post {
+    /* 以下代表透明度为0.7 */
+    background: rgba(255, 255, 255, .8);
+}
+
+/*侧边卡片的透明度 */
+:root {
+    --card-bg: rgba(255, 255, 255, .5);
+}
