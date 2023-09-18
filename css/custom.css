@@ -148,7 +148,7 @@ span.vnick {
 
 #notice {
     height: 47px;
-    background-color: white;
+    background-color: black;
     color: var(--font-color);
     margin-top: 20px;
     padding: 12px 20px 10px 20px;
