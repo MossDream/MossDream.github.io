@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
       this.classList.toggle('expand-done')
     }
 
-    function createEle (lang, item, service) {
+    function createEle(lang, item, service) {
       const fragment = document.createDocumentFragment()
 
       if (isShowTool) {
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /**
    * PhotoFigcaption
    */
-  function addPhotoFigcaption () {
+  function addPhotoFigcaption() {
     document.querySelectorAll('#article-container img').forEach(function (item) {
       const parentEle = item.parentNode
       const altValue = item.title || item.alt
@@ -321,6 +321,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const currentTop = window.scrollY || document.documentElement.scrollTop
       const isDown = scrollDirection(currentTop)
       if (currentTop > 56) {
+        $header.classList.add('is-top-bar')
         if (isDown) {
           if ($header.classList.contains('nav-visible')) $header.classList.remove('nav-visible')
           if (isChatBtn && isChatShow === true) {
