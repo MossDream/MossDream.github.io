@@ -321,7 +321,7 @@ ul.menus_item_child {
 
 @media screen and (min-width: 768px) {
     .page .menus_item:hover>a.site-page {
-        color: var(--anzhiyu-white) !important;
+        color: var(--anzhiyu-yellow) !important;
         background: var(--anzhiyu-main);
         transition: 0.3s;
         box-shadow: var(--anzhiyu-shadow-main);
@@ -343,7 +343,7 @@ ul.menus_item_child {
 }
 
 .page #nav a:hover {
-    color: var(--anzhiyu-white) !important;
+    color: var(--anzhiyu-yellow) !important;
     background: var(--anzhiyu-main);
     transition: 0.3s;
     box-shadow: var(--anzhiyu-shadow-main);
@@ -475,7 +475,7 @@ center#name-container {
 }
 
 #sidebar #sidebar-menus .menus_items .site-page:hover {
-    color: var(--anzhiyu-white);
+    color: var(--anzhiyu-yellow);
     border-radius: var(--anzhiyu-border-radius);
 }
 
@@ -495,7 +495,7 @@ center#name-container {
 
 .back-home-button:hover {
     background: var(--anzhiyu-main);
-    color: var(--anzhiyu-white) !important;
+    color: var(--anzhiyu-yellow) !important;
 }
 
 .back-home-button {
@@ -611,7 +611,7 @@ center#name-container {
 }
 
 .back-home-button .back-menu-list .back-menu-item:hover .back-menu-item-text {
-    color: var(--anzhiyu-white);
+    color: var(--anzhiyu-yellow);
 }
 
 .back-menu-item-icon.loading img {
@@ -658,7 +658,7 @@ center#name-container {
 /* 颜色 */
 :root {
     --anzhiyu-theme-op: #4259ef23;
-    --anzhiyu-white: #fff;
+    --anzhiyu-white: rgba(255, 255, 255, 0);
     --anzhiyu-black: #000;
     --anzhiyu-none: rgba(0, 0, 0, 0);
     --anzhiyu-gray: #999999;
@@ -689,7 +689,7 @@ center#name-container {
 }
 
 [data-theme="light"] {
-    --anzhiyu-theme: #3b70fc;
+    --anzhiyu-theme: rgba(255, 255, 255, 0);
     --anzhiyu-theme-op: #4259ef23;
     --anzhiyu-blue: #3b70fc;
     --anzhiyu-red: #d8213c;
@@ -701,7 +701,7 @@ center#name-container {
     --anzhiyu-maskbg: rgba(255, 255, 255, 0.6);
     --anzhiyu-maskbgdeep: rgba(255, 255, 255, 0.85);
     --anzhiyu-hovertext: var(--anzhiyu-theme);
-    --anzhiyu-ahoverbg: #f7f7fa;
+    --anzhiyu-ahoverbg: rgba(255, 255, 255, 0);
     --anzhiyu-lighttext: var(--anzhiyu-main);
     --anzhiyu-secondtext: rgba(60, 60, 67, 0.6);
     --anzhiyu-scrollbar: rgba(60, 60, 67, 0.4);
@@ -717,7 +717,7 @@ center#name-container {
 }
 
 [data-theme="dark"] {
-    --anzhiyu-theme: #0084ff;
+    --anzhiyu-theme: rgba(255, 255, 255, 0);
     --anzhiyu-theme-op: #0084ff23;
     --anzhiyu-blue: #0084ff;
     --anzhiyu-red: #ff3842;
@@ -728,8 +728,8 @@ center#name-container {
     --anzhiyu-reverse: #fff;
     --anzhiyu-maskbg: rgba(0, 0, 0, 0.6);
     --anzhiyu-maskbgdeep: rgba(0, 0, 0, 0.85);
-    --anzhiyu-hovertext: #0a84ff;
-    --anzhiyu-ahoverbg: #fff;
+    --anzhiyu-hovertext: rgba(255, 255, 255, 0);
+    --anzhiyu-ahoverbg: rgba(255, 255, 255, 0);
     --anzhiyu-lighttext: #f2b94b;
     --anzhiyu-secondtext: #a1a2b8;
     --anzhiyu-scrollbar: rgba(200, 200, 223, 0.4);
@@ -742,4 +742,16 @@ center#name-container {
     --anzhiyu-shadow-lightblack: 0 5px 12px -5px rgba(102, 68, 68, 0);
     --anzhiyu-shadow-light2black: 0 5px 12px -5px rgba(102, 68, 68, 0);
     --anzhiyu-card-border: #42444a;
+}
+
+/* 去除导航栏选项中底下的蓝条 */
+#nav *::after {
+    background-color: transparent !important;
+}
+
+/* 导航栏菜单鼠标移入字体放大 */
+#nav #site-name:hover,
+#nav .menus_item:hover,
+#nav #search-button:hover {
+    font-size: 28px;
 }
