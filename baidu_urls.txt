@@ -1,4 +1,4 @@
-https://mossdream.gitee.io/oopre3/
-https://mossdream.gitee.io/C-and-DS/
-https://mossdream.gitee.io/oopre2/
-https://mossdream.gitee.io/oopre1/
+https://mossdream.github.io/oopre3/
+https://mossdream.github.io/C-and-DS/
+https://mossdream.github.io/oopre2/
+https://mossdream.github.io/oopre1/
