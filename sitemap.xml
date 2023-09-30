@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://mossdream.github.io/about/index.html</loc>
+    
+    <lastmod>2023-09-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://mossdream.github.io/baidu_verify_codeva-MFdUS8tVLL.html</loc>
     
     <lastmod>2023-09-30</lastmod>
@@ -32,15 +41,6 @@
     <loc>https://mossdream.github.io/log/index.html</loc>
     
     <lastmod>2023-09-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://mossdream.github.io/about/index.html</loc>
-    
-    <lastmod>2023-09-20</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
