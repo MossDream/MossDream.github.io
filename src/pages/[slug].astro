@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ArrowIcon from '../components/ArrowIcon.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import { categoryHref, formatDate, getPosts, postHref, readingMinutes, tagHref } from '../lib/content';
 
@@ -60,13 +61,13 @@ const category = post.data.categories.at(-1) ?? '笔记';
   <nav class="article-pagination content-track" aria-label="相邻文章">
     {previous ? (
       <a class="article-pagination__item" href={postHref(previous)}>
-        <span>← OLDER</span>
+        <span class="article-pagination__label"><ArrowIcon direction="left" /> OLDER</span>
         <strong>{previous.data.title}</strong>
       </a>
     ) : <span></span>}
     {next ? (
       <a class="article-pagination__item article-pagination__item--next" href={postHref(next)}>
-        <span>NEWER →</span>
+        <span class="article-pagination__label">NEWER <ArrowIcon direction="right" /></span>
         <strong>{next.data.title}</strong>
       </a>
     ) : <span></span>}

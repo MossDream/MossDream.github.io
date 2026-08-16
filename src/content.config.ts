@@ -44,6 +44,7 @@ function normalizeLegacyHtml(html: string): string {
     .replace(/<input\b(?![^>]*\bdisabled\b)/gi, '<input disabled')
     .replace(/<h1\b/gi, '<h2')
     .replace(/<\/h1>/gi, '</h2>')
+    .replace(/([\u2190-\u2199\u21b3\u21b5])(?!\ufe0e)/giu, '$1\ufe0e')
     .replace(/\bid=(['"])(.*?)\1/gi, (attribute, quote: string, id: string) => {
       const occurrence = (ids.get(id) ?? 0) + 1;
       ids.set(id, occurrence);

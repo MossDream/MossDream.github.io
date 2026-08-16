@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import mossCat from '../assets/moss-cat.png';
+import ArrowIcon from './ArrowIcon.astro';
 ---
 
 <section class="hero" aria-labelledby="hero-title" data-mascot-stage>
@@ -30,7 +31,7 @@ import mossCat from '../assets/moss-cat.png';
   </div>
 
   <a class="hero__scroll" href="#featured">
-    <span aria-hidden="true">↓</span>
+    <ArrowIcon direction="down" />
     <span>SCROLL TO NOTES</span>
   </a>
 </section>

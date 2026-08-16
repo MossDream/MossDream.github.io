@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ArrowIcon from '../components/ArrowIcon.astro';
 import Hero from '../components/Hero.astro';
 import InlinePostPager from '../components/InlinePostPager.astro';
 import SectionHeading from '../components/SectionHeading.astro';
@@ -41,7 +42,7 @@ const categories = uniqueCategories(posts).filter((category) => category.path.le
           <a href={categoryHref(category.path)}>
             <strong>{category.name}</strong>
             <em>{category.count} NOTES</em>
-            <span aria-hidden="true">↗</span>
+            <ArrowIcon direction="up-right" />
           </a>
         ))}
       </div>

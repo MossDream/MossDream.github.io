@@ -1,6 +1,7 @@
 ---
 import type { PostEntry } from '../lib/content';
 import { formatDate, postHref, readingMinutes } from '../lib/content';
+import ArrowIcon from './ArrowIcon.astro';
 
 interface Props {
   post: PostEntry;
@@ -28,7 +29,7 @@ const serial = String(index).padStart(2, '0');
       </div>
       <h3>{post.data.title}</h3>
       <p>{post.data.excerpt}</p>
-      <span class="post-card__action">READ NOTE <span aria-hidden="true">↗</span></span>
+      <span class="post-card__action">READ NOTE <ArrowIcon direction="up-right" /></span>
     </div>
   </a>
 </article>

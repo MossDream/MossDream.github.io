@@ -1,4 +1,6 @@
 ---
+import ArrowIcon from './ArrowIcon.astro';
+
 interface Props {
   compact?: boolean;
 }
@@ -27,9 +29,9 @@ const year = new Date().getFullYear();
           <p class="site-footer__statement">继续阅读，<br />也保持联系。</p>
         </div>
         <nav aria-label="页脚导航">
-          <a href="/archives/"><span>文章归档</span><span aria-hidden="true">↗</span></a>
-          <a href="/log/"><span>记录日志</span><span aria-hidden="true">↗</span></a>
-          <a href="/about/"><span>关于 MossDream</span><span aria-hidden="true">↗</span></a>
+          <a href="/archives/"><span>文章归档</span><ArrowIcon direction="up-right" /></a>
+          <a href="/log/"><span>记录日志</span><ArrowIcon direction="up-right" /></a>
+          <a href="/about/"><span>关于 MossDream</span><ArrowIcon direction="up-right" /></a>
         </nav>
       </div>
       <div class="site-footer__base">

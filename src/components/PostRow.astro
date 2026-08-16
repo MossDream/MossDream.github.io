@@ -1,6 +1,7 @@
 ---
 import type { PostEntry } from '../lib/content';
 import { formatDate, postHref, readingMinutes } from '../lib/content';
+import ArrowIcon from './ArrowIcon.astro';
 
 interface Props {
   post: PostEntry;
@@ -19,6 +20,6 @@ const category = post.data.categories.at(-1) ?? '笔记';
       <span class="post-row__title">{post.data.title}</span>
       <span class="post-row__meta">{category} · {readingMinutes(post)} MIN</span>
     </span>
-    <span class="post-row__arrow" aria-hidden="true">↗</span>
+    <ArrowIcon class="post-row__arrow" direction="up-right" />
   </a>
 </article>

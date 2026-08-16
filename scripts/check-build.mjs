@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const projectRoot = fileURLToPath(new URL('../', import.meta.url));
 const distRoot = path.join(projectRoot, 'dist');
+const sourceRoot = path.join(projectRoot, 'src');
 const contentRoot = path.join(projectRoot, 'src', 'content', 'posts');
 const errors = [];
 const contentFiles = (await fs.readdir(contentRoot)).filter((file) => file.endsWith('.md'));
@@ -98,6 +99,16 @@ async function walk(directory) {
   return files;
 }
 
+const uiSourceFiles = (await walk(sourceRoot)).filter((file) => {
+  const relative = path.relative(sourceRoot, file).replaceAll('\\', '/');
+  return !relative.startsWith('content/') && /\.(?:astro|css|js|ts)$/i.test(relative);
+});
+const unicodeUiArrow = /[\u2190-\u21ff\u2794-\u27be\u27f0-\u27ff\u2900-\u297f\u2b05-\u2b07]/u;
+for (const file of uiSourceFiles) {
+  const value = await fs.readFile(file, 'utf8');
+  report(!unicodeUiArrow.test(value), `UI source contains a font-dependent Unicode arrow: ${path.relative(projectRoot, file)}.`);
+}
+
 report(await exists(distRoot), 'dist/ is missing; run npm run build first.');
 
 if (await exists(distRoot)) {
@@ -136,6 +147,11 @@ if (await exists(distRoot)) {
     report((html.match(/<h1\b/gi) ?? []).length === 1, `${relative} should contain exactly one h1.`);
     report(!/<pre>\s*<code>\s*<figure\b/i.test(html), `${relative} contains invalid nested pre/code/figure markup.`);
     report(!/(?:01|02|03)\s*\/\s*(?:ARCHIVE|ABOUT|LOG|TAG|TAGS|TRACK|TRACKS|ELSEWHERE)/i.test(html), `${relative} restores a removed section number.`);
+    report(!/[\u2190-\u21ff\u2794-\u27be\u27f0-\u27ff\u2900-\u297f\u2b05-\u2b07](?!\ufe0e)/u.test(html), `${relative} contains a bare Unicode arrow that can fall back to an emoji font.`);
+    for (const icon of html.matchAll(/<svg\b[^>]*\bclass=(['"])[^'"]*\barrow-icon\b[^'"]*\1[^>]*>/gi)) {
+      report(/\baria-hidden=(['"])true\1/i.test(icon[0]), `${relative} contains an arrow icon that is exposed to assistive technology.`);
+      report(/\bfocusable=(['"])false\1/i.test(icon[0]), `${relative} contains a focusable arrow icon.`);
+    }
     for (const input of html.matchAll(/<input\b[^>]*>/gi)) {
       report(/\bdisabled(?:\s|=|>)/i.test(input[0]) || /\bdata-search-input\b/i.test(input[0]), `${relative} contains a focusable decorative input.`);
     }
@@ -185,6 +201,7 @@ if (await exists(distRoot)) {
   report(!homeHtml.includes('03 / ELSEWHERE'), 'Home footer should not use a section number.');
   report(homeHtml.includes('继续阅读，') && homeHtml.includes('也保持联系。'), 'Home footer should keep its Chinese-first statement.');
   report(homeHtml.includes('href="/log/"'), 'The changelog route should be reachable from the site footer.');
+  report(homeHtml.includes('class="arrow-icon"'), 'Home should render font-independent SVG arrows.');
 
   const archivesHtml = pageDocuments.get(path.join(distRoot, 'archives', 'index.html')) ?? '';
   report(archivesHtml.includes('href="/archives/2023/"'), 'The yearly archive should be reachable from the archive index.');
@@ -236,6 +253,9 @@ if (await exists(distRoot)) {
   for (const file of textFiles) {
     const value = await fs.readFile(file, 'utf8');
     report(!forbidden.test(value), `Legacy effect reference remains in ${path.relative(distRoot, file)}.`);
+    if (/\.(?:html|css|js|svg)$/i.test(file)) {
+      report(!/[\u2190-\u21ff\u2794-\u27be\u27f0-\u27ff\u2900-\u297f\u2b05-\u2b07](?!\ufe0e)/u.test(value), `Built UI contains a bare Unicode arrow: ${path.relative(distRoot, file)}.`);
+    }
   }
 }
 

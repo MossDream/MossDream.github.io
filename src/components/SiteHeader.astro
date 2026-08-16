@@ -1,4 +1,6 @@
 ---
+import ArrowIcon from './ArrowIcon.astro';
+
 const pathname = Astro.url.pathname;
 const navItems = [
   { href: '/', label: '首页', match: (path: string) => path === '/' },
@@ -20,7 +22,7 @@ const navItems = [
       {navItems.map((item) => (
         <a href={item.href} aria-current={item.match(pathname) ? 'page' : undefined}>{item.label}</a>
       ))}
-      <a class="site-nav__external" href="https://github.com/MossDream" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+      <a class="site-nav__external" href="https://github.com/MossDream" target="_blank" rel="noopener noreferrer">GitHub <ArrowIcon direction="up-right" /></a>
     </nav>
 
     <div class="site-actions">
