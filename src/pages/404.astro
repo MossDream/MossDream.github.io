@@ -1,0 +1,23 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import mossCat from '../assets/moss-cat.png';
+---
+
+<BaseLayout title="页面未找到" description="请求的页面不存在。" noindex={true} pageKind="error">
+  <section class="error-page content-track">
+    <div class="error-page__code" aria-hidden="true">404</div>
+    <div class="error-page__copy">
+      <p class="eyebrow">LOST / NOT FOUND</p>
+      <h1>这条路标<br />暂时不存在。</h1>
+      <p>链接可能已经移动，也可能从来没有生成。可以回到首页，或在本地文章索引里继续找。</p>
+      <div class="error-page__actions">
+        <a href="/">回到首页 <span aria-hidden="true">↗</span></a>
+        <button type="button" data-search-open>搜索文章 <span aria-hidden="true">⌕</span></button>
+      </div>
+    </div>
+    <div class="error-page__mascot">
+      <Image src={mossCat} width={720} format="webp" quality={82} alt="正在寻找页面的猫咪 Moss" />
+    </div>
+  </section>
+</BaseLayout>

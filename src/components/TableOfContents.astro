@@ -1,0 +1,27 @@
+---
+interface Heading {
+  depth: number;
+  id: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+const visibleHeadings = headings.filter((heading) => heading.depth <= 2 && heading.text).slice(0, 28);
+---
+
+{visibleHeadings.length > 0 && (
+  <aside class="toc" aria-label="文章目录">
+    <p class="eyebrow">ON THIS NOTE</p>
+    <ol>
+      {visibleHeadings.map((heading) => (
+        <li class:list={[`toc__depth-${heading.depth}`]}>
+          <a href={`#${encodeURIComponent(heading.id)}`}>{heading.text}</a>
+        </li>
+      ))}
+    </ol>
+  </aside>
+)}

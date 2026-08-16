@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import InlinePostPager from '../../components/InlinePostPager.astro';
+import PageHero from '../../components/PageHero.astro';
+import { getPosts } from '../../lib/content';
+
+type ArchiveProps = {
+  title: string;
+  description: string;
+  posts: Awaited<ReturnType<typeof getPosts>>;
+};
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const paths: Array<{ params: { path: string }; props: ArchiveProps }> = [];
+
+  const years = [...new Set(posts.map((post) => post.data.published.getFullYear()))];
+  for (const year of years) {
+    const yearPosts = posts.filter((post) => post.data.published.getFullYear() === year);
+    paths.push({
+      params: { path: String(year) },
+      props: { title: `${year} 年`, description: `${year} 年发布的学习笔记。`, posts: yearPosts },
+    });
+
+    const months = [...new Set(yearPosts.map((post) => post.data.published.getMonth() + 1))];
+    for (const month of months) {
+      const monthPosts = yearPosts.filter((post) => post.data.published.getMonth() + 1 === month);
+      const monthLabel = String(month).padStart(2, '0');
+      paths.push({
+        params: { path: `${year}/${monthLabel}` },
+        props: { title: `${year}.${monthLabel}`, description: `${year} 年 ${month} 月发布的学习笔记。`, posts: monthPosts },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { title, description, posts } = Astro.props as ArchiveProps;
+---
+
+<BaseLayout title={title} description={description} pageKind="listing">
+  <PageHero eyebrow="ARCHIVE" title={title} description={description} count={posts.length} />
+  <section class="listing-shell content-track">
+    <InlinePostPager posts={posts} label={`${title}文章`} />
+  </section>
+</BaseLayout>

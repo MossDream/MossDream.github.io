@@ -1,0 +1,23 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  count?: number | string;
+}
+
+const { eyebrow, title, description, count } = Astro.props;
+---
+
+<header class="page-hero">
+  <div class="page-hero__inner">
+    <p class="eyebrow reveal">{eyebrow}</p>
+    <h1 class="reveal">{title}</h1>
+    {(description || count !== undefined) && (
+      <div class="page-hero__summary reveal">
+        {description && <p class="page-hero__description">{description}</p>}
+        {count !== undefined && <span class="page-hero__count">共 <strong>{count}</strong> 项</span>}
+      </div>
+    )}
+  </div>
+</header>

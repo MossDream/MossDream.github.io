@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import InlinePostPager from '../components/InlinePostPager.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import PostCard from '../components/PostCard.astro';
+import { categoryHref, getPosts, tagHref, uniqueCategories, uniqueTags } from '../lib/content';
+
+const posts = await getPosts();
+const featured = posts.slice(0, 3);
+const streamPosts = posts.slice(featured.length);
+const tags = uniqueTags(posts).slice(0, 6);
+const categories = uniqueCategories(posts).filter((category) => category.path.length > 1);
+---
+
+<BaseLayout title="MossDream's Blog" pageKind="home">
+  <Hero />
+
+  <section class="content-section content-track" id="featured">
+    <SectionHeading eyebrow="SELECTED NOTES" title="最近写下的三件事" note={`${posts.length} 篇文章 / 持续整理中`} />
+    <div class="featured-grid">
+      {featured.map((post, index) => <PostCard post={post} index={index + 1} />)}
+    </div>
+  </section>
+
+  <section class="content-section content-track">
+    <SectionHeading eyebrow="THE INDEX" title="沿着课程与代码继续" note="按发布时间排列" />
+    <InlinePostPager posts={streamPosts} startIndex={featured.length + 1} label="更多文章" />
+  </section>
+
+  <section class="field-section">
+    <div class="field-section__ghost" aria-hidden="true">FIELD</div>
+    <div class="field-section__inner content-track">
+      <div class="field-section__intro reveal">
+        <p class="eyebrow">TOPICS / PATHS</p>
+        <h2>从一门课，<br />走到一个系统。</h2>
+        <p>分类不是抽屉，而是学习路径。每篇笔记都保留当时的推导、踩坑和复盘。</p>
+      </div>
+      <div class="topic-index reveal">
+        {categories.map((category) => (
+          <a href={categoryHref(category.path)}>
+            <strong>{category.name}</strong>
+            <em>{category.count} NOTES</em>
+            <span aria-hidden="true">↗</span>
+          </a>
+        ))}
+      </div>
+      <div class="tag-ribbon reveal" aria-label="热门标签">
+        {tags.map((tag) => <a href={tagHref(tag.name)}>#{tag.name} <sup>{tag.count}</sup></a>)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,20 @@
+---
+interface Props {
+  current: number;
+  total: number;
+}
+
+const { current, total } = Astro.props;
+---
+
+{total > 1 && (
+  <nav class="pagination" aria-label="切换本栏文章" data-section-pagination-controls>
+    <button class:list={['pagination__direction', current === 1 && 'is-disabled']} type="button" disabled={current === 1} data-section-page-step="-1">← PREV</button>
+    <div class="pagination__pages">
+      {Array.from({ length: total }, (_, index) => index + 1).map((page) => (
+        <button type="button" aria-current={page === current ? 'page' : undefined} data-section-page-target={page}>{String(page).padStart(2, '0')}</button>
+      ))}
+    </div>
+    <button class:list={['pagination__direction', current === total && 'is-disabled']} type="button" disabled={current === total} data-section-page-step="1">NEXT →</button>
+  </nav>
+)}

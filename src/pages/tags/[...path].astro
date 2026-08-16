@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import InlinePostPager from '../../components/InlinePostPager.astro';
+import PageHero from '../../components/PageHero.astro';
+import { getPosts, taxonomySegment, uniqueTags } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+
+  return uniqueTags(posts).map((tag) => {
+    const tagPosts = posts.filter((post) => post.data.tags.includes(tag.name));
+    const route = taxonomySegment(tag.name);
+    return {
+      params: { path: route },
+      props: { name: tag.name, posts: tagPosts },
+    };
+  });
+}
+
+const { name, posts } = Astro.props;
+---
+
+<BaseLayout title={`#${name}`} description={`标签 ${name} 下的全部文章。`} pageKind="listing">
+  <PageHero eyebrow="TAG" title={`#${name}`} description="沿着同一个关键词继续阅读。" count={posts.length} />
+  <section class="listing-shell content-track">
+    <InlinePostPager posts={posts} label={`标签 ${name} 的文章`} />
+  </section>
+</BaseLayout>

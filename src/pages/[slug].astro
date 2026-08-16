@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import { categoryHref, formatDate, getPosts, postHref, readingMinutes, tagHref } from '../lib/content';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post, index) => ({
+    params: { slug: post.data.slug },
+    props: {
+      post,
+      previous: posts[index + 1] ?? null,
+      next: posts[index - 1] ?? null,
+    },
+  }));
+}
+
+const { post, previous, next } = Astro.props;
+const category = post.data.categories.at(-1) ?? '笔记';
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  pageKind="article"
+  article={{ published: post.data.published, updated: post.data.updated, tags: post.data.tags }}
+>
+  <header class="article-hero">
+    <div class="article-hero__inner content-track">
+      <p class="eyebrow reveal">NOTE / {category.toUpperCase()}</p>
+      <h1 class="reveal">{post.data.title}</h1>
+      <p class="article-hero__description reveal">{post.data.description}</p>
+      <div class="article-hero__meta reveal">
+        <time datetime={post.data.published.toISOString()}>{formatDate(post.data.published)}</time>
+        <span>{readingMinutes(post)} MIN READ</span>
+        <span>{post.data.wordCount.toLocaleString('zh-CN')} 字</span>
+      </div>
+      <div class="article-hero__tags reveal">
+        {post.data.tags.map((tag) => <a href={tagHref(tag)}>#{tag}</a>)}
+      </div>
+    </div>
+  </header>
+
+  <div class="article-layout content-track">
+    <article class="article-body" data-article-body>
+      <div class="article-body__route">
+        <a href="/archives/">文章归档</a>
+        <span aria-hidden="true">/</span>
+        <a href={categoryHref(post.data.categories)}>{post.data.categories.join(' / ')}</a>
+      </div>
+      <div set:html={post.data.html}></div>
+      <footer class="article-end">
+        <span aria-hidden="true">END /</span>
+        <p>这篇笔记最初发布于 {formatDate(post.data.published)}，最后整理于 {formatDate(post.data.updated)}。</p>
+      </footer>
+    </article>
+    <TableOfContents headings={post.data.headings} />
+  </div>
+
+  <nav class="article-pagination content-track" aria-label="相邻文章">
+    {previous ? (
+      <a class="article-pagination__item" href={postHref(previous)}>
+        <span>← OLDER</span>
+        <strong>{previous.data.title}</strong>
+      </a>
+    ) : <span></span>}
+    {next ? (
+      <a class="article-pagination__item article-pagination__item--next" href={postHref(next)}>
+        <span>NEWER →</span>
+        <strong>{next.data.title}</strong>
+      </a>
+    ) : <span></span>}
+  </nav>
+</BaseLayout>

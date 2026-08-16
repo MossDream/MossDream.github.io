@@ -1,0 +1,24 @@
+---
+import type { PostEntry } from '../lib/content';
+import { formatDate, postHref, readingMinutes } from '../lib/content';
+
+interface Props {
+  post: PostEntry;
+  index: number;
+}
+
+const { post, index } = Astro.props;
+const category = post.data.categories.at(-1) ?? '笔记';
+---
+
+<article class="post-row reveal">
+  <a href={postHref(post)}>
+    <span class="post-row__index" aria-hidden="true">{String(index).padStart(2, '0')}</span>
+    <span class="post-row__date">{formatDate(post.data.published)}</span>
+    <span class="post-row__main">
+      <span class="post-row__title">{post.data.title}</span>
+      <span class="post-row__meta">{category} · {readingMinutes(post)} MIN</span>
+    </span>
+    <span class="post-row__arrow" aria-hidden="true">↗</span>
+  </a>
+</article>

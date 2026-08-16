@@ -1,0 +1,41 @@
+---
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class:list={['site-footer', { 'site-footer--compact': compact }]}>
+  {compact ? (
+    <div class="site-footer__compact">
+      <a class="site-footer__compact-brand" href="/">MOSS / DREAM</a>
+      <span>© 2023–{year}</span>
+      <nav aria-label="页脚导航">
+        <a href="/archives/">文章索引</a>
+        <a href="/log/">记录日志</a>
+        <a href="/about/">关于</a>
+      </nav>
+    </div>
+  ) : (
+    <>
+      <div class="site-footer__mark" aria-hidden="true">M/D</div>
+      <div class="site-footer__inner">
+        <div>
+          <p class="eyebrow">ELSEWHERE</p>
+          <p class="site-footer__statement">继续阅读，<br />也保持联系。</p>
+        </div>
+        <nav aria-label="页脚导航">
+          <a href="/archives/"><span>文章归档</span><span aria-hidden="true">↗</span></a>
+          <a href="/log/"><span>记录日志</span><span aria-hidden="true">↗</span></a>
+          <a href="/about/"><span>关于 MossDream</span><span aria-hidden="true">↗</span></a>
+        </nav>
+      </div>
+      <div class="site-footer__base">
+        <span>© 2023–{year} MOSSDREAM</span>
+        <span>NOTES · CODE · LEARNING</span>
+      </div>
+    </>
+  )}
+</footer>

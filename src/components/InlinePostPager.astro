@@ -1,0 +1,42 @@
+---
+import type { PostEntry } from '../lib/content';
+import Pagination from './Pagination.astro';
+import PostRow from './PostRow.astro';
+
+interface Props {
+  posts: PostEntry[];
+  pageSize?: number;
+  startIndex?: number;
+  label?: string;
+}
+
+const {
+  posts,
+  pageSize = 5,
+  startIndex = 1,
+  label = '文章列表',
+} = Astro.props;
+
+const totalPages = Math.max(1, Math.ceil(posts.length / pageSize));
+const pages = Array.from({ length: totalPages }, (_, pageIndex) => (
+  posts.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)
+));
+---
+
+<div class="inline-post-pager" data-section-pagination aria-label={label}>
+  <div class="post-stream" aria-live="polite">
+    {pages.map((pagePosts, pageIndex) => (
+      <div class:list={['post-stream__page', { 'is-active': pageIndex === 0 }]} data-section-page={pageIndex + 1} aria-hidden={pageIndex !== 0}>
+        {pagePosts.map((post, index) => (
+          <PostRow post={post} index={startIndex + pageIndex * pageSize + index} />
+        ))}
+      </div>
+    ))}
+  </div>
+  {totalPages > 1 && (
+    <>
+      <p class="sr-only" role="status" aria-live="polite" data-section-pagination-status>正在显示第 1 页，共 {totalPages} 页</p>
+      <Pagination current={1} total={totalPages} />
+    </>
+  )}
+</div>

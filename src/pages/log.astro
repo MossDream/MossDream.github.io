@@ -1,0 +1,17 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+
+const page = await getEntry('pages', 'log');
+if (!page) throw new Error('Log content is missing');
+---
+
+<BaseLayout title={page.data.title} description={page.data.description} pageKind="article">
+  <PageHero eyebrow="LOG" title="记录日志" description="年度回看、阶段随笔，以及学习之外的时间。" />
+  <div class="article-layout article-layout--solo content-track">
+    <article class="article-body article-body--page">
+      <div set:html={page.data.html}></div>
+    </article>
+  </div>
+</BaseLayout>

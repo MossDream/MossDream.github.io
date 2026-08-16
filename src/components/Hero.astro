@@ -1,0 +1,36 @@
+---
+import { Image } from 'astro:assets';
+import mossCat from '../assets/moss-cat.png';
+---
+
+<section class="hero" aria-labelledby="hero-title" data-mascot-stage>
+  <div class="hero__coordinates" aria-hidden="true">
+    <span>39.9042° N</span>
+    <span>116.4074° E</span>
+  </div>
+
+  <div class="hero__inner">
+    <p class="eyebrow hero__eyebrow reveal">PERSONAL ARCHIVE · SINCE 2023</p>
+    <h1 id="hero-title" class="hero__title" aria-label="用代码记录思考与成长">
+      <span class="reveal">用代码记录</span>
+      <span class="reveal"><span class="hero__accent">思考</span>与成长。</span>
+    </h1>
+    <p class="hero__intro reveal">计算机科学学习笔记、课程复盘与那些值得留下的推导过程。</p>
+    <div class="hero__meta reveal">
+      <span>CS / BUAA</span>
+      <span>CODE / SYSTEMS / NOTES</span>
+    </div>
+  </div>
+
+  <div class="mascot-stage" aria-hidden="true">
+    <div class="mascot-stage__cat" data-mascot>
+      <Image src={mossCat} width={900} format="webp" quality={82} alt="" loading="eager" fetchpriority="high" decoding="async" />
+    </div>
+    <span class="mascot-stage__caption">MOSS / CURIOUS CAT</span>
+  </div>
+
+  <a class="hero__scroll" href="#featured">
+    <span aria-hidden="true">↓</span>
+    <span>SCROLL TO NOTES</span>
+  </a>
+</section>

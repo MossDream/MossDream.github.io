@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { getPosts, tagHref, uniqueTags } from '../../lib/content';
+
+const posts = await getPosts();
+const tags = uniqueTags(posts);
+---
+
+<BaseLayout title="标签" description="按技术主题浏览 MossDream 的学习笔记。" pageKind="taxonomy">
+  <PageHero eyebrow="TAGS" title="标签不是终点。" description="它们只是进入同一问题的不同入口。" count={tags.length} />
+  <section class="taxonomy-grid content-track" aria-label="全部标签">
+    {tags.map((tag) => (
+      <a class="taxonomy-card reveal" href={tagHref(tag.name)}>
+        <strong>#{tag.name}</strong>
+        <em>{tag.count} NOTES</em>
+        <span aria-hidden="true">↗</span>
+      </a>
+    ))}
+  </section>
+</BaseLayout>
