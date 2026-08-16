@@ -78,6 +78,7 @@ function markdownDirectory(directory: string, includeWordCount = false): Loader 
 
         for (const file of files) {
           const filePath = path.join(absoluteDirectory, file);
+          const storeFilePath = path.posix.join('src', directory.replaceAll('\\', '/'), file);
           const source = await fs.readFile(filePath, 'utf8');
           const { metadata, body } = parseSource(source, filePath);
           const rendered = await renderMarkdown(body, { fileURL: pathToFileURL(filePath) });
@@ -91,7 +92,7 @@ function markdownDirectory(directory: string, includeWordCount = false): Loader 
           };
           const data = await parseData({ id, data: raw, filePath });
 
-          store.set({ id, data, body, rendered, digest: generateDigest(source), filePath });
+          store.set({ id, data, body, rendered, digest: generateDigest(source), filePath: storeFilePath });
         }
 
         logger.info(`Loaded ${files.length} entries from ${directory}.`);
