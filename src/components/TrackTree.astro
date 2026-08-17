@@ -1,0 +1,29 @@
+---
+import type { TrackNode } from '../lib/content';
+import { trackHref } from '../lib/content';
+import ArrowIcon from './ArrowIcon.astro';
+
+interface Props {
+  nodes: TrackNode[];
+  depth?: number;
+}
+
+const { nodes, depth = 0 } = Astro.props;
+---
+
+<ol class:list={['track-tree__level', depth === 0 ? 'track-tree__level--root' : 'track-tree__level--branch']}>
+  {nodes.map((node, index) => (
+    <li class="track-tree__item reveal">
+      <a class:list={['track-node', depth === 0 && 'track-node--root']} href={trackHref(node.path)}>
+        <span class="track-node__kind">{depth === 0 ? 'TREE ROOT' : `BRANCH ${String(index + 1).padStart(2, '0')}`}</span>
+        <span class="track-node__copy">
+          <strong>{node.name}</strong>
+          <small>{depth === 0 ? '课程知识主干' : node.path.slice(0, -1).join(' / ')}</small>
+        </span>
+        <span class="track-node__count">{node.count} 篇</span>
+        <ArrowIcon direction="up-right" />
+      </a>
+      {node.children.length > 0 && <Astro.self nodes={node.children} depth={depth + 1} />}
+    </li>
+  ))}
+</ol>

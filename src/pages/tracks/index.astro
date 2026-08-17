@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import TrackTree from '../../components/TrackTree.astro';
+import { getPosts, getTrackTree } from '../../lib/content';
+
+const posts = await getPosts();
+const tracks = getTrackTree(posts);
+const branchCount = tracks.reduce((total, root) => total + root.children.length, 0);
+---
+
+<BaseLayout title="轨迹" description="从课程主干出发，沿学习轨迹浏览 MossDream 的笔记。" pageKind="taxonomy">
+  <PageHero eyebrow="TRACKS" title="学习轨迹" description="以课程为树根，把零散知识连接成不断生长的分支。" count={branchCount} mascotVariant="tracks" />
+  <section class="track-tree content-track" aria-label="全部学习轨迹">
+    {tracks.length > 0 ? <TrackTree nodes={tracks} /> : <p class="empty-state">轨迹尚未建立。</p>}
+  </section>
+</BaseLayout>

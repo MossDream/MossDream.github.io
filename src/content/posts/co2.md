@@ -17,12 +17,10 @@
 }
 ---
 
-<div class="note info modern"><p>📢<br>本系列文章只提供课上测试的解读<br>所有课下作业的源代码请按下面指示前往我的Github仓库~</p>
-</div>
-<a class="btn-beautify orange block center larger" target="_blank" rel="noopener" href="https://github.com/MossDream/BUAA-2023-CO"
-  title="BUAA-2023-CO"><span>BUAA-2023-CO</span></a>
-<div class="tip info"><p>通过阅读本文，您可以大致了解 2023 年秋季北航计算机组成原理课程 P0 课上测试的题目内容、难度和解题思路<br>P0 课上测试 3题做出2题 通过。主要内容是对 logisim 的使用综合考察<br>题目每年都会发生变化，题意描述大致清晰，但是可能与原题有一定差异</p>
-</div>
+<h1 class="article-preface" id="前言">前言</h1>
+<p>通过阅读本文，您可以大致了解 2023 年秋季北航计算机组成原理课程 P0 课上测试的题目内容、难度和解题思路。</p>
+<p>P0 课上测试共 3 题，完成 2 题即可通过，主要考察 Logisim 的综合使用。</p>
+<p>题目每年都会发生变化，本文描述可能与原题存在一定差异。</p>
 <h1 id="T0·未出现的正整数">T0·未出现的正整数</h1><h2 id="题目描述">题目描述</h2><p>本题中，你需要设计组合电路，找出输入中未出现的最小正整数。</p>
 <h3 id="简介">简介</h3><p>使用 Logisim 搭建一个组合电路。给定输入的 5 个任意无符号二进制数。确定输入中未出现的最小正整数是多少。</p>
 <p>例如：<strong>输入为 3，0，1，2，7 时，正整数 1，2，3 已经出现，未出现的最小正整数是 4</strong>。</p>

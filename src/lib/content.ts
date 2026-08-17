@@ -3,6 +3,13 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 export type PostEntry = CollectionEntry<'posts'>;
 export type PageEntry = CollectionEntry<'pages'>;
 
+export interface TrackNode {
+  name: string;
+  path: string[];
+  count: number;
+  children: TrackNode[];
+}
+
 export async function getPosts(): Promise<PostEntry[]> {
   const posts = await getCollection('posts');
   return posts.sort((a, b) => b.data.published.getTime() - a.data.published.getTime());
@@ -39,8 +46,8 @@ export function tagHref(tag: string): string {
   return `/tags/${encodeURIComponent(taxonomySegment(tag))}/`;
 }
 
-export function categoryHref(categories: string[]): string {
-  return `/categories/${categories.map((category) => encodeURIComponent(taxonomySegment(category))).join('/')}/`;
+export function trackHref(track: string[]): string {
+  return `/tracks/${track.map((part) => encodeURIComponent(taxonomySegment(part))).join('/')}/`;
 }
 
 export function uniqueTags(posts: PostEntry[]): Array<{ name: string; count: number }> {
@@ -63,6 +70,32 @@ export function uniqueCategories(posts: PostEntry[]): Array<{ path: string[]; na
   return [...counts.values()]
     .map((item) => ({ ...item, name: item.path.at(-1) ?? '' }))
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+}
+
+export function getTrackTree(posts: PostEntry[]): TrackNode[] {
+  const nodes = new Map<string, TrackNode>();
+  const roots: TrackNode[] = [];
+  const categories = uniqueCategories(posts).sort((left, right) => left.path.length - right.path.length);
+
+  for (const category of categories) {
+    const key = JSON.stringify(category.path);
+    const node: TrackNode = { ...category, children: [] };
+    nodes.set(key, node);
+
+    if (category.path.length === 1) {
+      roots.push(node);
+      continue;
+    }
+
+    const parent = nodes.get(JSON.stringify(category.path.slice(0, -1)));
+    parent?.children.push(node);
+  }
+
+  const sortNodes = (items: TrackNode[]): TrackNode[] => items
+    .sort((left, right) => right.count - left.count || left.name.localeCompare(right.name))
+    .map((item) => ({ ...item, children: sortNodes(item.children) }));
+
+  return sortNodes(roots);
 }
 
 export function plainText(html: string): string {

@@ -18,12 +18,6 @@
 }
 ---
 
-<div class="note info modern"><p>📢完整的题目要求和源代码请按下面指示前往我的Github仓库~</p>
-</div>
-<a class="btn-beautify orange block center larger" target="_blank" rel="noopener" href="https://github.com/MossDream/BUAA-2023-OOpre"
-  title="BUAA-2023-OOpre"><span>BUAA-2023-OOpre</span></a>
-<div class="tip fas fa-comment-dots"><p>题目信息</p>
-</div>
 <h1 id="第二次作业指导书">第二次作业指导书</h1><p>在本次作业中，我们即将完成面向对象先导课程作业的基础代码编写，在以后的作业中，我们将在本次作业的基础上进行迭代开发。</p>
 <h2 id="第一部分：提交要求">第一部分：提交要求</h2><p>请保证提交项目的顶层目录至少存在两个文件夹：<code>src</code>和<code>test</code>（命名需严格与此保持一致），请将作业的<strong>功能代码</strong>存放于<code>src</code>文件夹下，同时将相关<strong>junit测试类代码</strong>文件存放于<code>test</code>文件夹下，以保证评测的正常进行（评测时<strong>只会</strong>针对<code>src</code>目录下的文件进行程序<strong>功能</strong>的评测以及代码风格检测，也就是说，<code>test</code>目录下的junit测试代码风格不会被检测）。参考目录结构如下：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">|-src</span><br><span class="line">  |- Bottle.java</span><br><span class="line">  |- Equipment.java</span><br><span class="line">  |- ...</span><br><span class="line">|-test</span><br><span class="line">  |- BottleTest.java</span><br><span class="line">  |- EquipmentTest.java</span><br><span class="line">  |- ...</span><br></pre></td></tr></table></figure>
@@ -83,8 +77,6 @@
 <p>junit 是一个单元测试包，<strong>可以通过编写单元测试类和方法，来实现对类和方法实现正确性的快速检查和测试</strong>。还可以查看测试覆盖率以及具体覆盖范围（精确到语句级别），以帮助编程者全面无死角地进行程序功能测试。  </p>
 <p>此外，Junit 对主流 Java IDE（Idea、eclipse 等）均有较为完善的支持，具体的配置和使用方法可以参考gitlab上的使用文档。  </p>
 <h4 id="要求">要求</h4><p>本次作业要求同学们需要自行编写junit测试代码对自己的代码进行测试。在本次作业中，检测到<strong>存在junit测试方法</strong>并可以<strong>成功编译</strong>即视为通过junit评测。</p>
-<div class="tip fas fa-comment-dots"><p>解析说明</p>
-</div>
 <h1 id="关于第二次作业的解析与说明">关于第二次作业的解析与说明</h1><div  ><div class="note pink icon-padding modern"><p>第二次作业开始正式迭代开发，本次作业难度一般，主要目标是编写<strong>基础代码</strong>准备接下来几周的<strong>迭代与扩展</strong>。   </p>
 </div>
 <div class="note primary modern"><p><strong><em>注意：划删除线的部分并非过时信息！</em></strong></p>

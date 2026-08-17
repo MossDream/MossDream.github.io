@@ -18,12 +18,6 @@
 }
 ---
 
-<div class="note info modern"><p>📢完整的题目要求和源代码请按下面指示前往我的Github仓库~</p>
-</div>
-<a class="btn-beautify orange block center larger" target="_blank" rel="noopener" href="https://github.com/MossDream/BUAA-2023-OOpre"
-  title="BUAA-2023-OOpre"><span>BUAA-2023-OOpre</span></a>
-<div class="tip fas fa-comment-dots"><p>题目信息</p>
-</div>
 <h1 id="第一次作业指导书">第一次作业指导书</h1><h2 id="训练目标">训练目标</h2><ul>
 <li>学习 Java 的基本语法并完成给定代码的错误修改</li>
 </ul>
@@ -44,8 +38,6 @@
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">eat banana failed!</span><br><span class="line">eat apple failed!</span><br><span class="line">buy banana ok!</span><br><span class="line">eat apple failed!</span><br><span class="line">eat banana ok!</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"></button></div><div class="tab-item-content" id="1-2-3"><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">6</span><br><span class="line">buy apple</span><br><span class="line">buy apple</span><br><span class="line">buy apple</span><br><span class="line">buy apple</span><br><span class="line">buy apple</span><br><span class="line">buy apple</span><br></pre></td></tr></table></figure>
 <p>期望输出</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">buy apple ok!</span><br><span class="line">buy apple ok!</span><br><span class="line">buy apple ok!</span><br><span class="line">buy apple ok!</span><br><span class="line">buy apple ok!</span><br><span class="line">buy apple failed!</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"></button></div></div></div>
-<div class="tip fas fa-comment-dots"><p>解析说明</p>
-</div>
 <h1 id="关于第一次作业的解析与说明">关于第一次作业的解析与说明</h1><div  ><div class="note pink icon-padding modern"><p>本文对作业要求的<strong>源代码修改</strong>进行总结并展示自己的理解</p>
 </div></div>
 <h2 id="源代码语法错误点">源代码语法错误点</h2><h3 id="Main类">Main类</h3><ul>

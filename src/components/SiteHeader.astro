@@ -1,12 +1,10 @@
 ---
-import ArrowIcon from './ArrowIcon.astro';
-
 const pathname = Astro.url.pathname;
 const navItems = [
   { href: '/', label: '首页', match: (path: string) => path === '/' },
   { href: '/archives/', label: '文章', match: (path: string) => path.startsWith('/archives/') },
   { href: '/tags/', label: '标签', match: (path: string) => path.startsWith('/tags/') },
-  { href: '/categories/', label: '路径', match: (path: string) => path.startsWith('/categories/') },
+  { href: '/tracks/', label: '轨迹', match: (path: string) => path.startsWith('/tracks/') },
   { href: '/about/', label: '关于', match: (path: string) => path.startsWith('/about/') },
 ];
 ---
@@ -22,7 +20,6 @@ const navItems = [
       {navItems.map((item) => (
         <a href={item.href} aria-current={item.match(pathname) ? 'page' : undefined}>{item.label}</a>
       ))}
-      <a class="site-nav__external" href="https://github.com/MossDream" target="_blank" rel="noopener noreferrer">GitHub <ArrowIcon direction="up-right" /></a>
     </nav>
 
     <div class="site-actions">
@@ -32,7 +29,12 @@ const navItems = [
       <button class="icon-button" type="button" data-theme-toggle aria-label="切换明暗主题">
         <span class="theme-icon" aria-hidden="true"></span>
       </button>
-      <button class="menu-button" type="button" data-menu-toggle aria-expanded="false" aria-controls="site-nav">
+      <a class="icon-button github-button" href="https://github.com/MossDream" target="_blank" rel="noopener noreferrer" aria-label="前往 MossDream 的 GitHub（在新标签页打开）">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M12 .9a11.1 11.1 0 0 0-3.5 21.64c.56.1.76-.24.76-.54v-2.12c-3.11.68-3.77-1.32-3.77-1.32a2.97 2.97 0 0 0-1.24-1.64c-1.02-.7.08-.68.08-.68a2.35 2.35 0 0 1 1.7 1.15 2.38 2.38 0 0 0 3.26.93 2.4 2.4 0 0 1 .71-1.5c-2.48-.28-5.1-1.24-5.1-5.5a4.3 4.3 0 0 1 1.15-2.99 4 4 0 0 1 .11-2.95s.94-.3 3.05 1.14a10.5 10.5 0 0 1 5.56 0c2.12-1.44 3.05-1.14 3.05-1.14a4 4 0 0 1 .11 2.95 4.3 4.3 0 0 1 1.15 2.99c0 4.27-2.62 5.21-5.11 5.49a2.67 2.67 0 0 1 .76 2.07V22c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z" />
+        </svg>
+      </a>
+      <button class="menu-button" type="button" data-menu-toggle aria-expanded="false" aria-controls="site-nav" aria-label="打开主导航">
         <span class="menu-button__label">MENU</span>
         <span class="menu-button__lines" aria-hidden="true"></span>
       </button>

@@ -5,7 +5,7 @@ import Hero from '../components/Hero.astro';
 import InlinePostPager from '../components/InlinePostPager.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import PostCard from '../components/PostCard.astro';
-import { categoryHref, getPosts, tagHref, uniqueCategories, uniqueTags } from '../lib/content';
+import { getPosts, tagHref, trackHref, uniqueCategories, uniqueTags } from '../lib/content';
 
 const posts = await getPosts();
 const featured = posts.slice(0, 3);
@@ -33,13 +33,13 @@ const categories = uniqueCategories(posts).filter((category) => category.path.le
     <div class="field-section__ghost" aria-hidden="true">FIELD</div>
     <div class="field-section__inner content-track">
       <div class="field-section__intro reveal">
-        <p class="eyebrow">TOPICS / PATHS</p>
+        <p class="eyebrow">TRACK</p>
         <h2>从一门课，<br />走到一个系统。</h2>
-        <p>分类不是抽屉，而是学习路径。每篇笔记都保留当时的推导、踩坑和复盘。</p>
+        <p>纵览学习轨迹。每篇笔记都保留当时的推导和复盘。</p>
       </div>
       <div class="topic-index reveal">
         {categories.map((category) => (
-          <a href={categoryHref(category.path)}>
+          <a href={trackHref(category.path)}>
             <strong>{category.name}</strong>
             <em>{category.count} NOTES</em>
             <ArrowIcon direction="up-right" />

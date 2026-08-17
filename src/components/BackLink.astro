@@ -1,0 +1,19 @@
+---
+import ArrowIcon from './ArrowIcon.astro';
+
+interface Props {
+  href: string;
+  label: string;
+  class?: string;
+}
+
+const { href, label, class: className } = Astro.props;
+---
+
+<a class:list={['back-link', 'reveal', className]} href={href}>
+  <span class="back-link__icon"><ArrowIcon direction="left" /></span>
+  <span class="back-link__copy">
+    <small>返回</small>
+    <strong>{label}</strong>
+  </span>
+</a>

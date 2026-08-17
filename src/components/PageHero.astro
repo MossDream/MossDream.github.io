@@ -1,15 +1,47 @@
 ---
+import { Image } from 'astro:assets';
+import mossCatAbout from '../assets/moss-cat-about.png';
+import mossCatArchive from '../assets/moss-cat-archive.png';
+import mossCatTags from '../assets/moss-cat-tags.png';
+import mossCatTracks from '../assets/moss-cat-tracks.png';
+
+type MascotVariant = 'archive' | 'tags' | 'tracks' | 'about';
+
 interface Props {
   eyebrow: string;
   title: string;
   description?: string;
   count?: number | string;
+  mascotVariant?: MascotVariant;
 }
 
-const { eyebrow, title, description, count } = Astro.props;
+const { eyebrow, title, description, count, mascotVariant } = Astro.props;
+
+const mascotImages = {
+  archive: mossCatArchive,
+  tags: mossCatTags,
+  tracks: mossCatTracks,
+  about: mossCatAbout,
+} as const;
+
+const mascotImage = mascotVariant ? mascotImages[mascotVariant] : undefined;
 ---
 
-<header class="page-hero">
+<header class:list={['page-hero', mascotVariant && 'page-hero--mascot', mascotVariant && `page-hero--mascot-${mascotVariant}`]}>
+  {mascotImage && (
+    <div class="page-hero__mascot" aria-hidden="true">
+      <Image
+        src={mascotImage}
+        width={700}
+        sizes="(max-width: 36rem) 72vw, (max-width: 52rem) 43vw, 29vw"
+        format="webp"
+        quality={84}
+        alt=""
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+  )}
   <div class="page-hero__inner">
     <p class="eyebrow reveal">{eyebrow}</p>
     <h1 class="reveal">{title}</h1>

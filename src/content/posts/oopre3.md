@@ -18,12 +18,6 @@
 }
 ---
 
-<div class="note info modern"><p>📢完整的题目要求和源代码请按下面指示前往我的Github仓库~</p>
-</div>
-<a class="btn-beautify orange block center larger" target="_blank" rel="noopener" href="https://github.com/MossDream/BUAA-2023-OOpre"
-  title="BUAA-2023-OOpre"><span>BUAA-2023-OOpre</span></a>
-<div class="tip fas fa-comment-dots"><p>题目信息</p>
-</div>
 <h1 id="第三次作业指导书">第三次作业指导书</h1><h2 id="第零部分：提交要求-amp-amp-Junit要求">第零部分：提交要求 &amp;&amp; Junit要求</h2><p>请保证提交项目的顶层目录存在两个文件夹：<code>src</code>和<code>test</code>（命名需严格与此保持一致），请将作业的<strong>功能代码</strong>存放于<code>src</code>文件夹下，同时将相关<strong>junit测试类代码</strong>文件存放于<code>test</code>文件夹下，以保证评测的正常进行（评测时<strong>只会</strong>针对<code>src</code>目录下的文件进行程序<strong>功能</strong>的评测以及代码风格检测，也就是说，<code>test</code>目录下的junit测试代码风格不会被检测）。参考目录结构如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">|-src</span><br><span class="line">  |- Bottle.java</span><br><span class="line">  |- Equipment.java</span><br><span class="line">  |- ...</span><br><span class="line">|-test</span><br><span class="line">  |- BottleTest.java</span><br><span class="line">  |- EquipmentTest.java</span><br><span class="line">  |- ...</span><br></pre></td></tr></table></figure>
 <p>本次作业，要求Junit测试覆盖率<strong>保证</strong><code>method &gt;= 90％</code>，<code>line &gt;= 60%</code>。（<code>idea</code>显示的覆盖率和<code>评测</code>测到的覆盖率可能略有差别，请同学们以评测为准）</p>

@@ -18,13 +18,9 @@
 }
 ---
 
-<div class="note info modern"><p>📢完整的题目要求和源代码请按下面指示前往我的Github仓库~</p>
-</div>
-<a class="btn-beautify orange block center larger" target="_blank" rel="noopener" href="https://github.com/MossDream/BUAA-2023-OOpre"
-  title="BUAA-2023-OOpre"><span>BUAA-2023-OOpre</span></a>
 <h1 id="OOpre课程的简单建议">OOpre课程的简单建议</h1><p>经过这学期的学习，我收获颇丰，<strong>这门课程的开设于笔者而言很有意义</strong>。</p>
 <p>笔者的建议是：</p>
-<font color=blue size=4 >**加大课程训练力度，可以考虑 包括但不限于 <font color=red size=4.5 >加强深入迭代、增加hack互测与博客作业形式、增加研讨课和实验课、引入上机比赛等等</font>，达到全面模拟并提前熟悉OO正课节奏的效果**</font>
+<p><strong>加大课程训练力度，可以考虑包括但不限于加强深入迭代、增加 hack 互测与博客作业形式、增加研讨课和实验课、引入上机比赛等，达到全面模拟并提前熟悉 OO 正课节奏的效果。</strong></p>
 
 <blockquote>
 <p>伟大的领袖毛泽东曾说：“<strong>不打无准备之仗，方能立于不败之地</strong>。”<br>《礼记·中庸》中记载:“<strong>凡事预则立，不预则废</strong>。”<br>生活中，人们也常说:“<strong>机会都是留给有准备的人的。</strong>”</p>

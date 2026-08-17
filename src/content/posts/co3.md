@@ -17,12 +17,10 @@
 }
 ---
 
-<div class="note info modern"><p>📢<br>本系列文章只提供课上测试的解读<br>所有课下作业的源代码请按下面指示前往我的Github仓库~</p>
-</div>
-<a class="btn-beautify orange block center larger" target="_blank" rel="noopener" href="https://github.com/MossDream/BUAA-2023-CO"
-  title="BUAA-2023-CO"><span>BUAA-2023-CO</span></a>
-<div class="tip info"><p>通过阅读本文，您可以大致了解 2023 年秋季北航计算机组成原理课程 P1 课上测试的题目内容、难度和解题思路<br>P1 课上测试 3题做出2题 通过。主要内容是对 Verilog 的使用综合考察<br>题目每年都会发生变化，题意描述大致清晰，但是可能与原题有一定差异</p>
-</div>
+<h1 class="article-preface" id="前言">前言</h1>
+<p>通过阅读本文，您可以大致了解 2023 年秋季北航计算机组成原理课程 P1 课上测试的题目内容、难度和解题思路。</p>
+<p>P1 课上测试共 3 题，完成 2 题即可通过，主要考察 Verilog 的综合使用。</p>
+<p>题目每年都会发生变化，本文描述可能与原题存在一定差异。</p>
 <h1 id="T0·向量点乘">T0·向量点乘</h1><h2 id="题目描述">题目描述</h2><p>在实现矩阵乘操作时，往往可以将其分解为若干向量的点乘操作来执行。现在，请你设计一个向量点乘模块，实现向量的点乘操作。      </p>
 <h3 id="简介">简介</h3><p>为了简化题目，我们用两个位宽为 32 的 wire 型变量来表示两个需要点乘的 32 维向量，也就是说，向量任何一个维度的值只能为 0 或 1。你需要将两个向量同一位置相乘并将所有位置的乘积相加输出。</p>
 <h3 id="输入输出">输入输出</h3><div class="table-container">

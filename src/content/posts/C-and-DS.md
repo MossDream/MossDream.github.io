@@ -18,16 +18,12 @@
 }
 ---
 
-<div class="tip warning"><p>题目信息</p>
-</div>
 <h1 id="SimHash-大作业题目">SimHash 大作业题目</h1><div  ><div class="note green icon-padding modern"><p>点击下方按钮下载题目文档，国内环境建议选择Gitee路径👋</p>
 </div></div>
 <div class="btns rounded grid2">
             <a class="button" target="_blank" rel="noopener" href='https://gitee.com/mossdream/Coding-Program/blob/main/Program1/Version4/statement.pdf' title='下载题目文档-Gitee路径'>下载题目文档-Gitee路径</a>
 <a class="button" target="_blank" rel="noopener" href='https://github.com/mossdream/Coding-Program/blob/main/Program1/Version4/statement.pdf' title='下载题目文档-GitHub路径'>下载题目文档-GitHub路径</a>
           </div>
-<div class="tip ban"><p>解析说明</p>
-</div>
 <h1 id="SimHash-大作业四个版本的解析说明">SimHash 大作业四个版本的解析说明</h1><div class="note pink icon-padding modern"><p>在本人答题过程中，先后写出四个不同的迭代版本。主要体现在性能的不断提升。  </p>
 </div>
 <h2 id="四个版本的完整源码">四个版本的完整源码</h2><details class="folding-tag" yellow><summary> Version 1 </summary>

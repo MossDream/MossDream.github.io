@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { headings } = Astro.props;
-const visibleHeadings = headings.filter((heading) => heading.depth <= 2 && heading.text).slice(0, 28);
+const visibleHeadings = headings.filter((heading) => heading.depth <= 3 && heading.text).slice(0, 28);
 ---
 
 {visibleHeadings.length > 0 && (

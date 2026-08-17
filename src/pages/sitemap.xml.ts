@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { categoryHref, getPosts, postHref, tagHref, uniqueCategories, uniqueTags } from '../lib/content';
+import { getPosts, postHref, tagHref, trackHref, uniqueCategories, uniqueTags } from '../lib/content';
 
 export const prerender = true;
 
@@ -8,11 +8,11 @@ const escapeXml = (value: string) => value.replaceAll('&', '&amp;').replaceAll('
 export const GET: APIRoute = async ({ site }) => {
   const posts = await getPosts();
   const origin = site ?? new URL('https://mossdream.github.io');
-  const paths = new Set<string>(['/', '/archives/', '/tags/', '/categories/', '/about/', '/log/']);
+  const paths = new Set<string>(['/', '/archives/', '/tags/', '/tracks/', '/about/', '/essays/']);
 
   posts.forEach((post) => paths.add(postHref(post)));
   uniqueTags(posts).forEach((tag) => paths.add(tagHref(tag.name)));
-  uniqueCategories(posts).forEach((category) => paths.add(categoryHref(category.path)));
+  uniqueCategories(posts).forEach((category) => paths.add(trackHref(category.path)));
 
   const years = [...new Set(posts.map((post) => post.data.published.getFullYear()))];
   for (const year of years) {

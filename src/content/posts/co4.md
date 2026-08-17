@@ -17,12 +17,10 @@
 }
 ---
 
-<div class="note info modern"><p>📢<br>本系列文章只提供课上测试的解读<br>所有课下作业的源代码请按下面指示前往我的Github仓库~</p>
-</div>
-<a class="btn-beautify orange block center larger" target="_blank" rel="noopener" href="https://github.com/MossDream/BUAA-2023-CO"
-  title="BUAA-2023-CO"><span>BUAA-2023-CO</span></a>
-<div class="tip info"><p>通过阅读本文，您可以大致了解 2023 年秋季北航计算机组成原理课程 P2 课上测试的题目内容、难度和解题思路<br>P2 课上测试 3题做出2题 通过。主要内容是对 MIPS汇编语言 的使用综合考察<br>题目每年都会发生变化，题意描述大致清晰，但是可能与原题有一定差异</p>
-</div>
+<h1 class="article-preface" id="前言">前言</h1>
+<p>通过阅读本文，您可以大致了解 2023 年秋季北航计算机组成原理课程 P2 课上测试的题目内容、难度和解题思路。</p>
+<p>P2 课上测试共 3 题，完成 2 题即可通过，主要考察 MIPS 汇编语言的综合使用。</p>
+<p>题目每年都会发生变化，本文描述可能与原题存在一定差异。</p>
 <h1 id="T0·合并两个有序数组">T0·合并两个有序数组</h1><h2 id="题目描述">题目描述</h2><p>给你两个按非递减顺序排列的整数数组<code>nums1</code> 和 <code>nums2</code>，请你将两个数组合并为 <code>nums</code>，并使合并后的 <code>nums</code> 同样按非递减顺序排列。</p>
 <h2 id="边界条件">边界条件</h2><ul>
 <li>数组中可能包含重复元素，两个数组中的重复元素需要全部保留；同时，对于边界条件，数组中可能存在负数，请注意自己的实现方式。</li>

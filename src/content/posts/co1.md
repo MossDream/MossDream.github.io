@@ -17,12 +17,10 @@
 }
 ---
 
-<div class="note info modern"><p>📢<br>本系列文章只提供课上测试的解读<br>所有课下作业的源代码请按下面指示前往我的Github仓库~</p>
-</div>
-<a class="btn-beautify orange block center larger" target="_blank" rel="noopener" href="https://github.com/MossDream/BUAA-2023-CO"
-  title="BUAA-2023-CO"><span>BUAA-2023-CO</span></a>
-<div class="tip info"><p>通过阅读本文，您可以大致了解 2023 年秋季北航计算机组成原理课程 Pre 课上测试的题目内容、难度和解题思路<br>Pre 课上测试不计入课程分数。其主要内容是对预习部分的 logisim 、Verilog HDL 、 MIPS 汇编语言的综合考察<br>题目每年都会发生变化，题意描述大致清晰，但是可能与原题有一定差异</p>
-</div>
+<h1 class="article-preface" id="前言">前言</h1>
+<p>通过阅读本文，您可以大致了解 2023 年秋季北航计算机组成原理课程 Pre 课上测试的题目内容、难度和解题思路。</p>
+<p>Pre 课上测试不计入课程分数，主要内容是对预习部分的 Logisim、Verilog HDL、MIPS 汇编语言的综合考察。</p>
+<p>题目每年都会发生变化，本文描述可能与原题存在一定差异。</p>
 <h1 id="T0·简单模拟俄罗斯方块的有限状态机">T0·简单模拟俄罗斯方块的有限状态机</h1><div class="note primary modern"><p>本题考察 logisim 的使用，以及有限状态机的建模</p>
 </div>
 <h2 id="题目描述">题目描述</h2><p>仅对一行8个方块进行模拟。<br>输入为一个8位二进制数（独热码），唯一的一位<code>1</code>代表将要放下方块的位置。<br><strong>如果已经有方块，不能再放入方块，输出代表放入失败的结果<code>00</code>;</strong><br><strong>如果没有方块，可以放入方块，,且放入后一行未满，输出代表放入成功但未满的结果<code>01</code>;</strong><br><strong>如果没有方块，可以放入方块，,且放入后一行已满，输出代表放入成功且已满的结果<code>10</code>,本行方块清零消去</strong>。  </p>

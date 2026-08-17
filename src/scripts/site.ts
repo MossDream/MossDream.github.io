@@ -51,6 +51,7 @@ function initNavigation() {
     if (nav.contains(document.activeElement)) button.focus();
     document.body.classList.remove('menu-open');
     button.setAttribute('aria-expanded', 'false');
+    button.setAttribute('aria-label', '打开主导航');
     syncNavigationState();
   };
 
@@ -58,6 +59,7 @@ function initNavigation() {
     const opening = !document.body.classList.contains('menu-open');
     document.body.classList.toggle('menu-open', opening);
     button.setAttribute('aria-expanded', String(opening));
+    button.setAttribute('aria-label', opening ? '关闭主导航' : '打开主导航');
     syncNavigationState();
   });
   nav.addEventListener('click', (event) => {

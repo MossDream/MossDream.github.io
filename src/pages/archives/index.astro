@@ -12,30 +12,48 @@ const archiveYears = [...new Set(allPosts.map((post) => post.data.published.getF
     allPosts
       .filter((post) => post.data.published.getFullYear() === year)
       .map((post) => post.data.published.getMonth() + 1),
-  )].sort((left, right) => right - left),
+  )]
+    .sort((left, right) => right - left)
+    .map((month) => ({
+      month,
+      count: allPosts.filter((post) => post.data.published.getFullYear() === year && post.data.published.getMonth() + 1 === month).length,
+    })),
 }));
 ---
 
 <BaseLayout title="文章归档" description="MossDream 的全部计算机科学学习笔记，按时间排列。" pageKind="listing">
-  <PageHero eyebrow="ARCHIVE" title="文章归档" description="按时间回看每一次理解发生的现场。" count={allPosts.length} />
+  <PageHero eyebrow="ARCHIVE" title="文章归档" description="按时间回看每一次理解发生的现场。" count={allPosts.length} mascotVariant="archive" />
   <section class="listing-shell content-track">
-    <nav class="archive-periods reveal" aria-label="按发布时间浏览">
-      <p class="eyebrow">BROWSE BY DATE</p>
-      {archiveYears.map(({ year, count, months }) => (
-        <div class="archive-periods__group">
-          <a class="archive-periods__year" href={`/archives/${year}/`}>
-            <strong>{year}</strong>
-            <span>{count} 篇</span>
-          </a>
-          <div class="archive-periods__months">
-            {months.map((month) => (
-              <a href={`/archives/${year}/${String(month).padStart(2, '0')}/`}>
-                {String(month).padStart(2, '0')} 月
-              </a>
-            ))}
-          </div>
-        </div>
-      ))}
+    <nav class="archive-timeline reveal" aria-label="按发布时间浏览">
+      <header class="archive-timeline__heading">
+        <p class="eyebrow">BROWSE BY DATE</p>
+        <p>从最近的记录开始，沿时间轴向前回看。</p>
+      </header>
+      <ol class="archive-timeline__years">
+        {archiveYears.map(({ year, count, months }) => (
+          <li class="archive-timeline__year">
+            <a class="archive-timeline__year-link" href={`/archives/${year}/`}>
+              <span>YEAR</span>
+              <strong>{year}</strong>
+              <em>{count} 篇文章</em>
+            </a>
+            <ol class="archive-timeline__months">
+              {months.map(({ month, count: monthCount }) => {
+                const monthLabel = String(month).padStart(2, '0');
+                return (
+                  <li>
+                    <a href={`/archives/${year}/${monthLabel}/`}>
+                      <span>{monthLabel}</span>
+                      <strong>{month} 月</strong>
+                      <em>{monthCount} 篇</em>
+                    </a>
+                  </li>
+                );
+              })}
+            </ol>
+          </li>
+        ))}
+      </ol>
     </nav>
     <InlinePostPager posts={allPosts} label="全部归档文章" />
   </section>

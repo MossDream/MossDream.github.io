@@ -17,12 +17,10 @@
 }
 ---
 
-<div class="note info modern"><p>📢<br>本系列文章只提供课上测试的解读<br>所有课下作业的源代码请按下面指示前往我的Github仓库~</p>
-</div>
-<a class="btn-beautify orange block center larger" target="_blank" rel="noopener" href="https://github.com/MossDream/BUAA-2023-CO"
-  title="BUAA-2023-CO"><span>BUAA-2023-CO</span></a>
-<div class="tip info"><p>通过阅读本文，您可以大致了解 2023 年秋季北航计算机组成原理课程 P3 课上测试的题目内容、难度和解题思路<br>P3 课上测试 3题做出2题 通过。主要内容是对 P3课下已经实现的CPU进行强测并增加新的的指令 。<br>题目每年都会发生变化，题意描述大致清晰，但是可能与原题有一定差异</p>
-</div>
+<h1 class="article-preface" id="前言">前言</h1>
+<p>通过阅读本文，您可以大致了解 2023 年秋季北航计算机组成原理课程 P3 课上测试的题目内容、难度和解题思路。</p>
+<p>P3 课上测试共 3 题，完成 2 题即可通过，主要对 P3 课下已经实现的 CPU 进行强测，并要求增加新指令。</p>
+<p>题目每年都会发生变化，本文描述可能与原题存在一定差异。</p>
 <h1 id="T0·新增指令1-qaq">T0·新增指令1-qaq</h1><h2 id="指令格式">指令格式</h2><p>R型指令，<code>op-rd-rs-rt-fn</code></p>
 <h2 id="RTL语言表述">RTL语言表述</h2><p>temp1 &lt;- GRF[rs] <em> GRF[rs]<br>temp2 &lt;- GRF[rt] </em> GRF[rt]<br>GRF[rd] &lt;- temp1[31:0] | temp2[31:0]  </p>
 <h2 id="求解思路">求解思路</h2><p>与<code>add</code>和<code>sub</code>指令类似，只需要将<code>add</code>和<code>sub</code>指令在ALU中的<code>+</code>和<code>-</code>操作换成一个全新的操作<code>qaq</code>（算平方再按位与）即可。</p>

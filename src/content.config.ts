@@ -30,20 +30,22 @@ function plainText(html: string): string {
 }
 
 function extractHeadings(html: string) {
-  return [...html.matchAll(/<h([1-4])\b[^>]*\bid=(['"])(.*?)\2[^>]*>([\s\S]*?)<\/h\1>/gi)].map((match) => ({
+  return [...html.matchAll(/<h([1-6])\b[^>]*\bid=(['"])(.*?)\2[^>]*>([\s\S]*?)<\/h\1>/gi)].map((match) => ({
     depth: Number(match[1]),
     id: decodeEntities(match[3] ?? ''),
     text: plainText(match[4] ?? ''),
   }));
 }
 
-function normalizeLegacyHtml(html: string): string {
+function normalizeLegacyHtml(html: string, demoteFullHeadingHierarchy = false): string {
   const ids = new Map<string, number>();
-  return html
+  const normalizedHeadings = demoteFullHeadingHierarchy
+    ? html.replace(/<(\/?)h([1-5])\b/gi, (_match, slash: string, level: string) => `<${slash}h${Number(level) + 1}`)
+    : html.replace(/<(\/?)h1\b/gi, '<$1h2');
+
+  return normalizedHeadings
     .replace(/<pre><code>(\s*<figure class="highlight[\s\S]*?<\/figure>)\s*<\/code><\/pre>/gi, '$1')
     .replace(/<input\b(?![^>]*\bdisabled\b)/gi, '<input disabled')
-    .replace(/<h1\b/gi, '<h2')
-    .replace(/<\/h1>/gi, '</h2>')
     .replace(/([\u2190-\u2199\u21b3\u21b5])(?!\ufe0e)/giu, '$1\ufe0e')
     .replace(/\bid=(['"])(.*?)\1/gi, (attribute, quote: string, id: string) => {
       const occurrence = (ids.get(id) ?? 0) + 1;
@@ -84,7 +86,7 @@ function markdownDirectory(directory: string, includeWordCount = false): Loader 
           const { metadata, body } = parseSource(source, filePath);
           const rendered = await renderMarkdown(body, { fileURL: pathToFileURL(filePath) });
           const id = String(metadata.slug ?? path.basename(file, '.md'));
-          const html = normalizeLegacyHtml(rendered.html);
+          const html = normalizeLegacyHtml(rendered.html, includeWordCount);
           const raw = {
             ...metadata,
             html,
@@ -117,7 +119,7 @@ function markdownDirectory(directory: string, includeWordCount = false): Loader 
 }
 
 const heading = z.object({
-  depth: z.number().int().min(1).max(4),
+  depth: z.number().int().min(1).max(6),
   id: z.string(),
   text: z.string(),
 });

@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BackLink from '../../components/BackLink.astro';
+import InlinePostPager from '../../components/InlinePostPager.astro';
+import PageHero from '../../components/PageHero.astro';
+import { getPosts, taxonomySegment, uniqueCategories } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return uniqueCategories(posts).map((track) => {
+    const trackPosts = posts.filter((post) => track.path.every((part, index) => post.data.categories[index] === part));
+    const route = track.path.map(taxonomySegment).join('/');
+    return {
+      params: { track: route },
+      props: { path: track.path, posts: trackPosts },
+    };
+  });
+}
+
+const { path, posts } = Astro.props;
+const name = path.at(-1) ?? '轨迹';
+---
+
+<BaseLayout title={name} description={`${path.join(' / ')} 学习轨迹下的全部文章。`} pageKind="listing">
+  <PageHero eyebrow="TRACK" title={name} description={path.join(' / ')} count={posts.length} />
+  <section class="listing-shell content-track">
+    <BackLink href="/tracks/" label="轨迹主页" />
+    <InlinePostPager posts={posts} label={`${name} 轨迹文章`} />
+  </section>
+</BaseLayout>
