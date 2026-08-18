@@ -9,7 +9,7 @@ const tags = uniqueTags(posts);
 ---
 
 <BaseLayout title="标签" description="按技术主题浏览 MossDream 的学习笔记。" pageKind="taxonomy">
-  <PageHero eyebrow="TAGS" title="标签不是终点。" description="它们只是进入同一问题的不同入口。" count={tags.length} mascotVariant="tags" />
+  <PageHero eyebrow="TAGS" title="分类标签" description="它们是进入同一问题的不同入口。" count={tags.length} mascotVariant="tags" />
   <section class="taxonomy-grid content-track" aria-label="全部标签">
     {tags.map((tag) => (
       <a class="taxonomy-card reveal" href={tagHref(tag.name)}>
