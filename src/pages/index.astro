@@ -41,7 +41,7 @@ const categories = uniqueCategories(posts).filter((category) => category.path.le
         {categories.map((category) => (
           <a href={trackHref(category.path)}>
             <strong>{category.name}</strong>
-            <em>{category.count} NOTES</em>
+            <em>{category.count} 篇</em>
             <ArrowIcon direction="up-right" />
           </a>
         ))}

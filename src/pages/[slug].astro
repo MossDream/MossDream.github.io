@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArrowIcon from '../components/ArrowIcon.astro';
-import BackLink from '../components/BackLink.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import { formatDate, getPosts, postHref, readingMinutes, tagHref, trackHref } from '../lib/content';
 
@@ -29,7 +28,17 @@ const category = post.data.categories.at(-1) ?? '笔记';
 >
   <header class="article-hero">
     <div class="article-hero__inner content-track">
-      <BackLink class="back-link--hero" href="/archives/" label="文章主页" />
+      <nav class="article-route reveal" aria-label="文章路径">
+        <ol>
+          <li><a href="/archives/">文章归档</a></li>
+          {post.data.categories.map((name, index) => (
+            <li>
+              <span aria-hidden="true">/</span>
+              <a href={trackHref(post.data.categories.slice(0, index + 1))}>{name}</a>
+            </li>
+          ))}
+        </ol>
+      </nav>
       <p class="eyebrow reveal">NOTE / {category.toUpperCase()}</p>
       <h1 class="reveal">{post.data.title}</h1>
       <p class="article-hero__description reveal">{post.data.description}</p>
@@ -46,11 +55,6 @@ const category = post.data.categories.at(-1) ?? '笔记';
 
   <div class="article-layout content-track">
     <article class="article-body" data-article-body>
-      <div class="article-body__route">
-        <a href="/archives/">文章归档</a>
-        <span aria-hidden="true">/</span>
-        <a href={trackHref(post.data.categories)}>{post.data.categories.join(' / ')}</a>
-      </div>
       <div class="article-content" set:html={post.data.html}></div>
       <footer class="article-end">
         <span aria-hidden="true">END /</span>

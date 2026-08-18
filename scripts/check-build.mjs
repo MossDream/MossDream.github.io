@@ -205,6 +205,21 @@ if (await exists(distRoot)) {
   report(homeHtml.includes('class="icon-button github-button"'), 'The header should expose GitHub as a right-side icon action.');
   report(!homeHtml.includes('site-nav__external'), 'GitHub should not remain a text item in the primary navigation.');
 
+  const essaysHtml = pageDocuments.get(path.join(distRoot, 'essays', 'index.html')) ?? '';
+  const essaysBody = essaysHtml.match(/<article\s+class="article-body[^\"]*"[^>]*>([\s\S]*?)<\/article>/i)?.[1] ?? '';
+  const essaysSource = await fs.readFile(path.join(sourceRoot, 'content', 'pages', 'log.md'), 'utf8');
+  const essayHeadingIds = [...essaysSource.matchAll(/<h1\b[^>]*\bid="([^"]+)"/gi)].map((match) => match[1]);
+  report((essaysHtml.match(/class="article-hero\b/g) ?? []).length === 1 && essaysHtml.includes('class="article-hero__inner content-track"'), 'Essays should use one post-style masthead.');
+  report(essaysHtml.includes('class="article-layout essay-layout content-track"') && !essaysHtml.includes('article-layout--solo'), 'Essays should use the post-style reading layout.');
+  report(essaysBody.includes('class="article-content essay-content"'), 'Essays should render inside the shared article-content typography system.');
+  report(/class="page-hero__count"[^>]*>共\s*<strong>2<\/strong>\s*项/.test(essaysHtml) && !essaysHtml.includes('持续整理中'), 'Essays should use the shared 共 N 项 statistic.');
+  report(essaysHtml.includes('class="toc" aria-label="随笔目录"') && essaysHtml.includes('ESSAY INDEX'), 'Essays should expose a dedicated table of contents.');
+  report(essayHeadingIds.length === 2 && (essaysBody.match(/class="essay-entry\b/g) ?? []).length === essayHeadingIds.length, 'Essays should render two continuous semantic entries.');
+  report(!/<h1\b/i.test(essaysBody) && essayHeadingIds.every((id) => essaysBody.includes(`<h2 id="${id}">`)), 'Essay source headings should render as article-level h2 headings.');
+  report((essaysHtml.match(/class="toc__depth-2"/g) ?? []).length === essayHeadingIds.length, 'The essay table of contents should include every essay entry.');
+  report(!/(?:<details\b|class="timeline\b|class="poem\b)/i.test(essaysBody), 'Essays should not restore the legacy folding or timeline layout.');
+  report((essaysBody.match(/class="note\b/g) ?? []).length === 4 && (essaysBody.match(/<blockquote\b/g) ?? []).length === 4, 'Essay restructuring should preserve all notes and quotations.');
+
   const archivesHtml = pageDocuments.get(path.join(distRoot, 'archives', 'index.html')) ?? '';
   report(archivesHtml.includes('archive-timeline'), 'The archive date filter should render as a timeline.');
   report(archivesHtml.includes('href="/archives/2023/"'), 'The yearly archive should be reachable from the archive index.');
@@ -215,11 +230,19 @@ if (await exists(distRoot)) {
   const tracksHtml = pageDocuments.get(path.join(distRoot, 'tracks', 'index.html')) ?? '';
   report(tracksHtml.includes('track-tree__level--root') && tracksHtml.includes('track-node--root'), 'Tracks should render as a rooted tree.');
 
+  const tagCardCounts = [...(pageDocuments.get(path.join(distRoot, 'tags', 'index.html')) ?? '').matchAll(/<a class="taxonomy-card[^\"]*"[^>]*>[\s\S]*?<em>([^<]+)<\/em>/g)]
+    .map((match) => match[1].trim());
+  report(tagCardCounts.length > 0 && tagCardCounts.every((label) => /^\d+ 篇$/.test(label)), 'Tag card counts should use Chinese 篇 labels.');
+  const homeTrackIndex = homeHtml.match(/<div class="topic-index[^\"]*"[^>]*>([\s\S]*?)<\/div>/)?.[1] ?? '';
+  const homeTrackCounts = [...homeTrackIndex.matchAll(/<em>([^<]+)<\/em>/g)]
+    .map((match) => match[1].trim());
+  report(homeTrackCounts.length > 0 && homeTrackCounts.every((label) => /^\d+ 篇$/.test(label)), 'Home TRACK counts should use Chinese 篇 labels.');
+  report(homeHtml.includes('阅读文章') && !homeHtml.includes('READ NOTE'), 'Home post cards should use the 阅读文章 action label.');
+
   const secondaryBackLinks = [
     ['/archives/2023/', '/archives/'],
     ['/tags/BUAA/', '/tags/'],
     ['/tracks/BUAA计算机课程/', '/tracks/'],
-    ['/oopre1/', '/archives/'],
   ];
   for (const [route, parent] of secondaryBackLinks) {
     const html = pageDocuments.get(routeToFile(route)) ?? '';
@@ -234,6 +257,9 @@ if (await exists(distRoot)) {
     const article = pageDocuments.get(routeToFile(`/${slug}/`)) ?? '';
     const articleBody = article.match(/<article\s+class="article-body"[^>]*>([\s\S]*?)<\/article>/i)?.[1] ?? '';
     report(Boolean(articleBody), `${file} article body could not be inspected.`);
+    report((article.match(/class="article-route\b/g) ?? []).length === 1, `${file} should contain one article path in the masthead.`);
+    report(article.includes('aria-label="文章路径"') && article.includes('href="/archives/"'), `${file} article path should link back to the archive.`);
+    report(!article.includes('article-body__route'), `${file} still renders the old article-body breadcrumb.`);
     report(!/<h1\b/i.test(articleBody), `${file} content should not contain a second h1.`);
     for (let sourceLevel = 1; sourceLevel <= 5; sourceLevel += 1) {
       const sourceCount = (source.match(new RegExp(`<h${sourceLevel}\\b`, 'gi')) ?? []).length;
@@ -354,7 +380,25 @@ report(!/class="tip[^"]*"[^>]*>\s*<p>(?:题目信息|解析说明)<\/p>/i.test(m
 const globalCss = await fs.readFile(path.join(sourceRoot, 'styles', 'global.css'), 'utf8');
 report(/h2\.article-preface\s*\{[^}]*counter-increment:\s*none/s.test(globalCss), 'Article prefaces should not increment the regular section counter.');
 report(/h2\.article-preface::before\s*\{[^}]*content:\s*"SECTION 00"/s.test(globalCss), 'Article prefaces should render as SECTION 00.');
+report(/\.article-content\s*>\s*h2:first-child\s*\{[^}]*border-top:\s*0/s.test(globalCss), 'The first article section should not render a divider line.');
 report(!/page-hero__(?:mascot-orbit|archive-scale|tag-cloud|track-map|hello-mark)/.test(globalCss), 'Obsolete mascot circles or decorative overlays remain in CSS.');
+report(/\.field-section\s*\{[^}]*border-block:\s*0[^}]*background:\s*transparent/s.test(globalCss), 'The home TRACK section should continue the shared page background.');
+report(/\.site-footer\s*\{[^}]*background:\s*transparent/s.test(globalCss), 'The home ELSEWHERE footer should continue the shared page background.');
+report(/@media\s*\(max-width:\s*36rem\)[\s\S]*?\.topic-index a\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)\s+1\.2rem/s.test(globalCss), 'The mobile home TRACK layout should reserve a separate column for its arrow.');
+report(/@media\s*\(max-width:\s*36rem\)[\s\S]*?\.topic-index \.arrow-icon\s*\{[^}]*grid-column:\s*2/s.test(globalCss), 'The mobile home TRACK arrows should stay in their reserved column.');
+report(!globalCss.includes('grid-template-columns: 2rem minmax(0, 1fr) 1.2rem'), 'The obsolete mobile TRACK grid that overlaps titles and arrows should not return.');
+report(/\.essay-content \.essay-entry > h2::before\s*\{[^}]*content:\s*"ESSAY "/s.test(globalCss), 'Essay headings should use their own numbered rendering.');
+report(globalCss.includes('--font-art:') && /\.article-body \.essay-epigraph__source\s*\{[^}]*writing-mode:\s*vertical-rl/s.test(globalCss) && /\.essay-epigraph::before\s*\{[^}]*content:\s*"十思"/s.test(globalCss), 'The essay epigraph should keep its calligraphic vertical composition.');
+report(/@media\s*\(max-width:\s*36rem\)[\s\S]*?\.article-body \.essay-index a\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)/s.test(globalCss), 'The mobile essay index should collapse to one overflow-safe column.');
+report(/\.taxonomy-card::before,\s*\.taxonomy-card::after/.test(globalCss), 'Tag cards are missing their corner-line decoration.');
+report(/\.track-node::after\s*\{/.test(globalCss), 'Track cards are missing their branching-line decoration.');
+report(globalCss.includes('theme-spread-dark') && globalCss.includes('theme-spread-light') && globalCss.includes('::view-transition-new(root)'), 'Both theme directions should use root diffusion transitions.');
+report(globalCss.includes('.article-route') && !globalCss.includes('.article-body__route') && !globalCss.includes('.back-link--hero'), 'Article path styles were not fully moved into the masthead.');
+
+const siteScript = await fs.readFile(path.join(sourceRoot, 'scripts', 'site.ts'), 'utf8');
+report(siteScript.includes('startViewTransition') && siteScript.includes("CSS.supports('clip-path'"), 'Theme switching is missing its progressive View Transition guard.');
+const themeInit = await fs.readFile(path.join(projectRoot, 'public', 'theme-init.js'), 'utf8');
+report(themeInit.includes('meta[name="theme-color"]'), 'Initial theme setup should synchronize the browser theme color before paint.');
 
 for (const asset of ['moss-cat.png', 'moss-cat-archive.png', 'moss-cat-tags.png', 'moss-cat-tracks.png', 'moss-cat-about.png']) {
   const cat = await fs.readFile(path.join(projectRoot, 'src', 'assets', asset));

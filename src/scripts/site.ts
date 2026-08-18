@@ -8,10 +8,21 @@ type SearchRecord = {
   text: string;
 };
 
+type Theme = 'light' | 'dark';
+
+type ViewTransitionHandle = {
+  finished: Promise<void>;
+};
+
+type TransitionDocument = Document & {
+  startViewTransition?: (update: () => void) => ViewTransitionHandle;
+};
+
 const root = document.documentElement;
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let themeTransitionRunning = false;
 
-function setTheme(theme: 'light' | 'dark') {
+function setTheme(theme: Theme) {
   root.dataset.theme = theme;
   const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
   meta?.setAttribute('content', theme === 'dark' ? '#11110f' : '#f2efe7');
@@ -25,11 +36,57 @@ function setTheme(theme: 'light' | 'dark') {
   }
 }
 
+async function transitionTheme(theme: Theme, button: HTMLButtonElement) {
+  if (themeTransitionRunning) return;
+
+  const transitionDocument = document as TransitionDocument;
+  const canTransition = !reducedMotion.matches
+    && typeof transitionDocument.startViewTransition === 'function'
+    && typeof CSS !== 'undefined'
+    && CSS.supports('clip-path', 'circle(1px at 1px 1px)');
+
+  if (!canTransition) {
+    setTheme(theme);
+    return;
+  }
+
+  const rect = button.getBoundingClientRect();
+  const originX = rect.left + rect.width / 2;
+  const originY = rect.top + rect.height / 2;
+  const radius = Math.hypot(
+    Math.max(originX, window.innerWidth - originX),
+    Math.max(originY, window.innerHeight - originY),
+  ) + 2;
+
+  root.style.setProperty('--theme-origin-x', `${originX}px`);
+  root.style.setProperty('--theme-origin-y', `${originY}px`);
+  root.style.setProperty('--theme-radius', `${radius}px`);
+  root.dataset.themeTransition = theme;
+  themeTransitionRunning = true;
+
+  try {
+    const transition = transitionDocument.startViewTransition?.(() => setTheme(theme));
+    if (transition) await transition.finished;
+    else setTheme(theme);
+  } catch {
+    setTheme(theme);
+  } finally {
+    themeTransitionRunning = false;
+    delete root.dataset.themeTransition;
+    root.style.removeProperty('--theme-origin-x');
+    root.style.removeProperty('--theme-origin-y');
+    root.style.removeProperty('--theme-radius');
+  }
+}
+
 function initTheme() {
   const current = root.dataset.theme === 'dark' ? 'dark' : 'light';
   setTheme(current);
   document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((button) => {
-    button.addEventListener('click', () => setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark'));
+    button.addEventListener('click', () => {
+      const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      void transitionTheme(next, button);
+    });
   });
 }
 

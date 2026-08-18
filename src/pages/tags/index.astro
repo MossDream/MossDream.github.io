@@ -14,7 +14,7 @@ const tags = uniqueTags(posts);
     {tags.map((tag) => (
       <a class="taxonomy-card reveal" href={tagHref(tag.name)}>
         <strong>#{tag.name}</strong>
-        <em>{tag.count} NOTES</em>
+        <em>{tag.count} 篇</em>
         <ArrowIcon direction="up-right" />
       </a>
     ))}

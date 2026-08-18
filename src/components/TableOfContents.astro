@@ -7,15 +7,17 @@ interface Heading {
 
 interface Props {
   headings: Heading[];
+  eyebrow?: string;
+  label?: string;
 }
 
-const { headings } = Astro.props;
+const { headings, eyebrow = 'ON THIS NOTE', label = '文章目录' } = Astro.props;
 const visibleHeadings = headings.filter((heading) => heading.depth <= 3 && heading.text).slice(0, 28);
 ---
 
 {visibleHeadings.length > 0 && (
-  <aside class="toc" aria-label="文章目录">
-    <p class="eyebrow">ON THIS NOTE</p>
+  <aside class="toc" aria-label={label}>
+    <p class="eyebrow">{eyebrow}</p>
     <ol>
       {visibleHeadings.map((heading) => (
         <li class:list={[`toc__depth-${heading.depth}`]}>

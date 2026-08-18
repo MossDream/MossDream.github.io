@@ -1,17 +1,33 @@
 ---
 import { getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
+import TableOfContents from '../components/TableOfContents.astro';
 
 const page = await getEntry('pages', 'log');
 if (!page) throw new Error('Essays content is missing');
+const essayCount = page.data.headings.filter((heading) => heading.depth === 2).length;
 ---
 
 <BaseLayout title={page.data.title} description={page.data.description} pageKind="article">
-  <PageHero eyebrow="ESSAYS" title="随笔" description="年度回看、阶段随笔，以及学习之外的时间。" />
-  <div class="article-layout article-layout--solo content-track">
-    <article class="article-body article-body--page">
-      <div set:html={page.data.html}></div>
+  <header class="article-hero essay-hero">
+    <div class="article-hero__inner content-track">
+      <p class="eyebrow reveal">ESSAYS / TIME &amp; MEMORY</p>
+      <h1 class="reveal">随笔</h1>
+      <div class="page-hero__summary essay-hero__summary reveal">
+        <p class="page-hero__description">年度回看、阶段随笔，以及学习之外的时间。</p>
+        <span class="page-hero__count">共 <strong>{essayCount}</strong> 项</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="article-layout essay-layout content-track">
+    <article class="article-body essay-body" data-article-body>
+      <div class="article-content essay-content" set:html={page.data.html}></div>
+      <footer class="article-end">
+        <span aria-hidden="true">END /</span>
+        <p>一些阶段性的回看，也是在时间里留下的坐标。</p>
+      </footer>
     </article>
+    <TableOfContents headings={page.data.headings} eyebrow="ESSAY INDEX" label="随笔目录" />
   </div>
 </BaseLayout>
