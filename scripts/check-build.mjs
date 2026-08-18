@@ -389,6 +389,9 @@ report(/@media\s*\(max-width:\s*36rem\)[\s\S]*?\.topic-index \.arrow-icon\s*\{[^
 report(!globalCss.includes('grid-template-columns: 2rem minmax(0, 1fr) 1.2rem'), 'The obsolete mobile TRACK grid that overlaps titles and arrows should not return.');
 report(/\.essay-content \.essay-entry > h2::before\s*\{[^}]*content:\s*"ESSAY "/s.test(globalCss), 'Essay headings should use their own numbered rendering.');
 report(globalCss.includes('--font-art:') && /\.article-body \.essay-epigraph__source\s*\{[^}]*writing-mode:\s*vertical-rl/s.test(globalCss) && /\.essay-epigraph::before\s*\{[^}]*content:\s*"十思"/s.test(globalCss), 'The essay epigraph should keep its calligraphic vertical composition.');
+report(/\.essay-epigraph::before\s*\{[^}]*z-index:\s*0/s.test(globalCss) && !/\.essay-epigraph::before\s*\{[^}]*z-index:\s*-1/s.test(globalCss), 'The 十思 watermark should remain on a visible background layer.');
+report(/\.article-body \.essay-epigraph blockquote p\s*\{[^}]*white-space:\s*nowrap/s.test(globalCss), 'Each epigraph sentence should remain intact on one line.');
+report(/\.essay-epigraph__source span\s*\{[^}]*border-radius:\s*50%[^}]*writing-mode:\s*horizontal-tb/s.test(globalCss), 'The epigraph author should render as a circular seal.');
 report(/@media\s*\(max-width:\s*36rem\)[\s\S]*?\.article-body \.essay-index a\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)/s.test(globalCss), 'The mobile essay index should collapse to one overflow-safe column.');
 report(/\.taxonomy-card::before,\s*\.taxonomy-card::after/.test(globalCss), 'Tag cards are missing their corner-line decoration.');
 report(/\.track-node::after\s*\{/.test(globalCss), 'Track cards are missing their branching-line decoration.');

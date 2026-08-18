@@ -2301,9 +2301,9 @@ body.menu-open .site-header {
 
 .essay-epigraph::before {
   position: absolute;
-  right: -0.08em;
-  bottom: -0.16em;
-  z-index: -1;
+  right: clamp(0.6rem, 2vw, 1.4rem);
+  bottom: 0.04em;
+  z-index: 0;
   color: color-mix(in srgb, var(--accent) 7%, transparent);
   content: "十思";
   font-family: var(--font-art);
@@ -2315,8 +2315,10 @@ body.menu-open .site-header {
 }
 
 .article-body .essay-epigraph__source {
+  position: relative;
   grid-column: 2;
   grid-row: 1;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-self: stretch;
@@ -2339,15 +2341,30 @@ body.menu-open .site-header {
 }
 
 .essay-epigraph__source span {
-  color: var(--muted);
+  display: grid;
+  width: 2.85rem;
+  height: 2.85rem;
+  flex: 0 0 auto;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 7%, var(--paper-raised));
+  color: var(--accent-strong);
   font-family: var(--font-art);
-  font-size: 0.88rem;
-  letter-spacing: 0.2em;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  transform: rotate(-6deg);
+  writing-mode: horizontal-tb;
 }
 
 .article-body .essay-epigraph blockquote {
+  position: relative;
   grid-column: 1;
   grid-row: 1;
+  z-index: 1;
+  justify-self: center;
   max-width: 24ch;
   margin: 0;
   padding: 0;
@@ -2357,11 +2374,24 @@ body.menu-open .site-header {
   font-weight: 500;
   letter-spacing: 0.08em;
   line-height: 2.05;
+  text-align: center;
+}
+
+.article-body .essay-epigraph blockquote::before {
+  display: block;
+  width: 3rem;
+  margin: 0 auto 1.4rem;
+  border-top: 1px solid var(--accent);
+  content: "";
 }
 
 .article-body .essay-epigraph blockquote p {
+  width: max-content;
+  max-width: 100%;
   margin: 0;
+  margin-inline: auto;
   color: var(--ink);
+  white-space: nowrap;
 }
 
 .essay-index {
@@ -3680,8 +3710,9 @@ body.menu-open .site-header {
   }
 
   .essay-epigraph::before {
-    right: -0.2em;
-    font-size: 11rem;
+    right: 0.25rem;
+    bottom: 0.05em;
+    font-size: 9.5rem;
   }
 
   .article-body .essay-epigraph__source {
@@ -3702,11 +3733,24 @@ body.menu-open .site-header {
     letter-spacing: 0.08em;
   }
 
+  .essay-epigraph__source span {
+    width: 2.55rem;
+    height: 2.55rem;
+    padding: 0;
+    letter-spacing: 0.04em;
+  }
+
   .article-body .essay-epigraph blockquote {
     grid-column: 1;
     grid-row: 2;
     padding: 0;
-    font-size: clamp(1.45rem, 7vw, 2rem);
+    font-size: clamp(1.15rem, 6.1vw, 1.7rem);
+    letter-spacing: 0.04em;
+    line-height: 2.15;
+  }
+
+  .article-body .essay-epigraph blockquote::before {
+    margin-bottom: 1rem;
   }
 
   .article-body .essay-index a {
